@@ -1,47 +1,61 @@
-# Define virtual environment name and paths
+# Virtual environment setup
 VENV = .venv
-BIN = $(VENV)/bin
-PIP = $(BIN)/pip
-PYTHON = $(BIN)/python
-DEPS_CHECK = $(VENV)/installed.txt
-UV = $(BIN)/uv
 
+ifeq ($(OS),Windows_NT)
+    BIN = $(VENV)\Scripts
+    ACTIVATE_CMD = $(BIN)\activate
+    RM = rmdir /S /Q
+    PIP = $(BIN)\pip.exe
+    PYTHON = $(BIN)\python.exe
+    UV = $(BIN)\uv.exe
+else
+    BIN = $(VENV)/bin
+    ACTIVATE_CMD = source $(BIN)/activate
+    RM = rm -rf
+    PIP = $(BIN)/pip
+    PYTHON = $(BIN)/python
+    UV = $(BIN)/uv
+endif
+
+DEPS_CHECK = $(VENV)/installed.txt
 DIRS = $(VENV) build dist wheels
 
-# Define target for setting up the virtual environment and installing dependencies
-.PHONY: setup install activate clean lint compile-requirements
+.PHONY: dev activate clean lint pip-compile
 
+# Dependency installation target
 $(DEPS_CHECK): requirements.txt $(UV)
 	$(UV) pip install -e .[dev] -r requirements.txt --python=$(PYTHON)
-	$(UV) pip freeze >$@
+	$(UV) pip freeze > $@
 	@echo "Dependencies installed."
-# Target to create and set up the virtual environment
+
+# Virtual environment setup
 $(VENV) $(PYTHON):
 	python -m venv $(VENV) --upgrade-deps
 	$(PIP) install --upgrade pip
 	@echo "Virtual environment created in $(VENV)"
 
+# Ensure uv is installed inside the venv
 $(UV): $(VENV)
 	$(PIP) install uv pip-tools
 
-# Target to install dependencies from requirements.txt
+# Full dev environment setup
 dev: $(VENV) $(DEPS_CHECK)
 
-# Target to activate the virtual environment (use this after running 'make setup')
+# Activation hint
 activate:
 	@echo "To activate the virtual environment, run:"
-	@echo "source $(VENV)/bin/activate"
+	@echo "$(ACTIVATE_CMD)"
 
-# Target to clean up and remove the virtual environment
+# Clean the virtual environment
 clean:
-	rm -rf $(VENV)
+	$(RM) $(VENV)
 	@echo "Virtual environment removed."
 
-# Target to run pre-commit hooks
+# Lint using pre-commit
 lint:
 	pre-commit run --all-files
 
-# Target to compile requirements.txt from requirements.in
+# Compile requirements.txt from requirements.in
 pip-compile: $(VENV) $(UV)
-	$(VENV)/bin/uv pip compile --output-file=requirements.txt requirements.in
+	$(UV) pip compile --output-file=requirements.txt requirements.in
 	@echo "requirements.txt compiled from requirements.in"
