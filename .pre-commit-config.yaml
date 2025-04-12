@@ -1,0 +1,17 @@
+repos:
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.3.4  # Check for the latest version
+    hooks:
+      - id: ruff-format
+      - id: ruff
+        args: [--fix]  # Auto-fix issues if possible
+
+  - repo: local
+    hooks:
+      - id: clear-notebook-outputs
+        name: Clear Jupyter notebook outputs
+        entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --ClearMetadataPreprocessor.enabled=True --inplace
+        language: python
+        language_version: python3
+        additional_dependencies: ["jupyter[notebook]"]
+

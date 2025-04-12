@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_2513680fb50cd1a3dd123e354273cd8b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_2513680fb50cd1a3dd123e354273cd8b" ></div>
+        
+    
+        
+    <div style="position: fixed; 
+                bottom: 40px; left: 40px; width: 280px; height: auto; 
+                background-color: white; z-index:9999; 
+                font-size:14px; padding: 10px; 
+                border-radius: 8px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+        <b>Polling Booth Legend</b><br>
+        <b>Circle Size (Voter Estimate):</b><br>
+        <div style="display: flex; align-items: center;">
+            <div style="background:gray; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></div> 
+            ~500 votes
+        </div>
+        <div style="display: flex; align-items: center;">
+            <div style="background:gray; width: 20px; height: 20px; border-radius: 50%; margin-right: 5px;"></div> 
+            ~1,000 votes
+        </div>
+        <div style="display: flex; align-items: center;">
+            <div style="background:gray; width: 40px; height: 40px; border-radius: 50%; margin-right: 5px;"></div> 
+            ~2,000 votes
+        </div>
+        <b>Party primary votes at last election:</b><br>
+        
+        <div style="display: flex; align-items: center;">
+            <div style="background:red; width: 15px; height: 15px; border-radius: 50%; margin-right: 5px;"></div> Australian Labor Party
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <div style="background:blue; width: 15px; height: 15px; border-radius: 50%; margin-right: 5px;"></div> Liberal National Party of Queensland
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <div style="background:green; width: 15px; height: 15px; border-radius: 50%; margin-right: 5px;"></div> Queensland Greens
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <div style="background:orange; width: 15px; height: 15px; border-radius: 50%; margin-right: 5px;"></div> Pauline Hanson's One Nation
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <div style="background:yellow; width: 15px; height: 15px; border-radius: 50%; margin-right: 5px;"></div> United Australia Party
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <div style="background:grey; width: 15px; height: 15px; border-radius: 50%; margin-right: 5px;"></div> Other
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <div style="background:grey; border: 2px solid black; width: 15px; height: 15px; border-radius: 50%; margin-right: 5px;"></div> 
+            New booth/No primary votes recorded
+        </div>
+    </div>
+
+        
+</body>
+<script>
+    
+    
+            var map_2513680fb50cd1a3dd123e354273cd8b = L.map(
+                "map_2513680fb50cd1a3dd123e354273cd8b",
+                {
+                    center: [-27.546995, 153.02664179724502],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13.5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_c70b6f3ffd5f72f0e10c875e1d8a1e41 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_c70b6f3ffd5f72f0e10c875e1d8a1e41.addTo(map_2513680fb50cd1a3dd123e354273cd8b);
+        
+    
+            var marker_0cfc7ed9b01c76bc899a1e2c302713f1 = L.marker(
+                [-27.4689546147948, 153.02350816449],
+                {
+}
+            ).addTo(map_2513680fb50cd1a3dd123e354273cd8b);
+        
+    
+            var div_icon_5f82be511194e3cdab691143d260c418 = L.divIcon({
+  "html": "\u003cdiv\u003e\u003c?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?\u003e\n\u003c!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"\u003e\n\u003csvg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"64.029888pt\" height=\"64.029888pt\" viewBox=\"0 0 64.029888 64.029888\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"\u003e\n \u003cmetadata\u003e\n  \u003crdf:RDF xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\u003e\n   \u003ccc:Work\u003e\n    \u003cdc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\"/\u003e\n    \u003cdc:date\u003e2025-04-07T19:53:51.622667\u003c/dc:date\u003e\n    \u003cdc:format\u003eimage/svg+xml\u003c/dc:format\u003e\n    \u003cdc:creator\u003e\n     \u003ccc:Agent\u003e\n      \u003cdc:title\u003eMatplotlib v3.10.1, https://matplotlib.org/\u003c/dc:title\u003e\n     \u003c/cc:Agent\u003e\n    \u003c/dc:creator\u003e\n   \u003c/cc:Work\u003e\n  \u003c/rdf:RDF\u003e\n \u003c/metadata\u003e\n \u003cdefs\u003e\n  \u003cstyle type=\"text/css\"\u003e*{stroke-linejoin: round; stroke-linecap: butt}\u003c/style\u003e\n \u003c/defs\u003e\n \u003cg id=\"figure_1\"\u003e\n  \u003cg id=\"patch_1\"\u003e\n   \u003cpath d=\"M 0 64.029888 \nL 64.029888 64.029888 \nL 64.029888 0 \nL 0 0 \nL 0 64.029888 \nz\n\" style=\"fill: none\"/\u003e\n  \u003c/g\u003e\n  \u003cg id=\"axes_1\"\u003e\n   \u003cg id=\"patch_2\"\u003e\n    \u003cpath d=\"M 32.014944 12.162989 \nC 28.170866 12.162989 24.408296 13.279524 21.186439 15.376326 \nC 17.964583 17.473128 15.42007 20.461277 13.863447 23.976084 \nC 12.306824 27.49089 11.804103 31.3833 12.416639 35.178262 \nC 13.029176 38.973224 14.730993 42.509804 17.314392 45.356379 \nL 32.014944 32.014944 \nz\n\" style=\"fill: #ff0000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_3\"\u003e\n    \u003cpath d=\"M 17.314392 45.356378 \nC 19.399458 47.653854 21.994366 49.430858 24.890233 50.544343 \nC 27.7861 51.657829 30.903082 52.077093 33.990247 51.768381 \nC 37.077413 51.459671 40.049645 50.431502 42.667683 48.766639 \nC 45.285722 47.101777 47.477374 44.846128 49.066218 42.18127 \nL 32.014944 32.014944 \nz\n\" style=\"fill: #0000ff\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_4\"\u003e\n    \u003cpath d=\"M 49.066218 42.18127 \nC 50.457701 39.847433 51.355326 37.252573 51.703369 34.557785 \nC 52.051411 31.862997 51.842518 29.125225 51.089654 26.514437 \nC 50.33679 23.903649 49.055866 21.475016 47.326405 19.379309 \nC 45.596944 17.283603 43.455493 15.565111 41.034996 14.330522 \nL 32.014944 32.014944 \nz\n\" style=\"fill: #008000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_5\"\u003e\n    \u003cpath d=\"M 41.034996 14.330522 \nC 40.604655 14.111024 40.166447 13.907307 39.721244 13.719779 \nC 39.276042 13.532251 38.824143 13.361034 38.366449 13.206474 \nL 32.014944 32.014944 \nz\n\" style=\"fill: #ffa500\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_6\"\u003e\n    \u003cpath d=\"M 38.366449 13.206474 \nC 37.961577 13.069751 37.5524 12.946139 37.13955 12.835826 \nC 36.726699 12.725514 36.310388 12.628559 35.89128 12.545117 \nL 32.014944 32.014944 \nz\n\" style=\"fill: #ffff00\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_7\"\u003e\n    \u003cpath d=\"M 35.89128 12.545117 \nC 35.253435 12.418125 34.609735 12.322555 33.962508 12.258752 \nC 33.315282 12.194949 32.665311 12.162989 32.014947 12.162989 \nL 32.014944 32.014944 \nz\n\" style=\"fill: #808080\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"matplotlib.axis_1\"/\u003e\n   \u003cg id=\"matplotlib.axis_2\"/\u003e\n  \u003c/g\u003e\n \u003c/g\u003e\n\u003c/svg\u003e\n\u003c/div\u003e",
+  "iconSize": [44.76, 44.76],
+  "className": "empty",
+});
+            marker_0cfc7ed9b01c76bc899a1e2c302713f1.setIcon(div_icon_5f82be511194e3cdab691143d260c418);
+        
+    
+        var popup_9bca113813f0ae158eab15cbb68f6771 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8a844f2bc8974f3a6124500c5c72e919 = $(`<div id="html_8a844f2bc8974f3a6124500c5c72e919" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; font-size: 14px;">         <b style="font-size: 16px; color: darkblue;">Brisbane City Hall</b><br>                          <b>Total votes:</b> 2238<br>                                  <b>Last election Australian Labor Party primary:</b> 822<br><b>Last election Liberal National Party of Queensland primary:</b> 665<br><b>Last election Queensland Greens primary:</b> 583<br><b>Last election Pauline Hanson's One Nation primary:</b> 52<br><b>Last election United Australia Party primary:</b> 46<br><b>Last election Other primary:</b> 70<br>             </div>         </div>`)[0];
+                popup_9bca113813f0ae158eab15cbb68f6771.setContent(html_8a844f2bc8974f3a6124500c5c72e919);
+            
+        
+
+        marker_0cfc7ed9b01c76bc899a1e2c302713f1.bindPopup(popup_9bca113813f0ae158eab15cbb68f6771)
+        ;
+
+        
+    
+    
+                marker_0cfc7ed9b01c76bc899a1e2c302713f1.setIcon(div_icon_5f82be511194e3cdab691143d260c418);
+            
+    
+            var marker_7405f0d54f7b6de5286c7f1fd7d90b21 = L.marker(
+                [-27.46028465, 153.02977543],
+                {
+}
+            ).addTo(map_2513680fb50cd1a3dd123e354273cd8b);
+        
+    
+            var div_icon_c35ff3cab56e251d717c37145135654b = L.divIcon({
+  "html": "\u003cdiv\u003e\u003c?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?\u003e\n\u003c!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"\u003e\n\u003csvg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"18.125568pt\" height=\"18.125568pt\" viewBox=\"0 0 18.125568 18.125568\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"\u003e\n \u003cmetadata\u003e\n  \u003crdf:RDF xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\u003e\n   \u003ccc:Work\u003e\n    \u003cdc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\"/\u003e\n    \u003cdc:date\u003e2025-04-07T19:53:51.654640\u003c/dc:date\u003e\n    \u003cdc:format\u003eimage/svg+xml\u003c/dc:format\u003e\n    \u003cdc:creator\u003e\n     \u003ccc:Agent\u003e\n      \u003cdc:title\u003eMatplotlib v3.10.1, https://matplotlib.org/\u003c/dc:title\u003e\n     \u003c/cc:Agent\u003e\n    \u003c/dc:creator\u003e\n   \u003c/cc:Work\u003e\n  \u003c/rdf:RDF\u003e\n \u003c/metadata\u003e\n \u003cdefs\u003e\n  \u003cstyle type=\"text/css\"\u003e*{stroke-linejoin: round; stroke-linecap: butt}\u003c/style\u003e\n \u003c/defs\u003e\n \u003cg id=\"figure_1\"\u003e\n  \u003cg id=\"patch_1\"\u003e\n   \u003cpath d=\"M 0 18.125568 \nL 18.125568 18.125568 \nL 18.125568 0 \nL 0 0 \nL 0 18.125568 \nz\n\" style=\"fill: none\"/\u003e\n  \u003c/g\u003e\n  \u003cg id=\"axes_1\"\u003e\n   \u003cg id=\"patch_2\"\u003e\n    \u003cpath d=\"M 9.062784 7.572557 \nC 8.796489 7.572557 8.534999 7.643935 8.305636 7.779233 \nC 8.076273 7.91453 7.887314 8.108866 7.758502 8.341933 \nC 7.62969 8.575 7.565674 8.83839 7.573143 9.10458 \nC 7.580612 9.370769 7.659295 9.630155 7.800973 9.855633 \nL 9.062784 9.062784 \nz\n\" style=\"fill: #ff0000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_3\"\u003e\n    \u003cpath d=\"M 7.800973 9.855633 \nC 7.932604 10.065123 8.114357 10.238571 8.32977 10.360269 \nC 8.545182 10.481966 8.78755 10.548124 9.034919 10.552751 \nC 9.282288 10.557377 9.526959 10.500328 9.746772 10.38677 \nC 9.966584 10.273212 10.154695 10.106681 10.294068 9.902259 \nL 9.062784 9.062784 \nz\n\" style=\"fill: #0000ff\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_4\"\u003e\n    \u003cpath d=\"M 10.294068 9.902259 \nC 10.417529 9.721174 10.499535 9.515064 10.534226 9.298659 \nC 10.568916 9.082254 10.555443 8.860838 10.494769 8.650236 \nC 10.434096 8.439635 10.327703 8.244987 10.183196 8.080209 \nC 10.038689 7.91543 9.859595 7.784541 9.658714 7.696898 \nL 9.062784 9.062784 \nz\n\" style=\"fill: #008000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_5\"\u003e\n    \u003cpath d=\"M 9.658714 7.696898 \nC 9.624654 7.682038 9.59005 7.668457 9.554975 7.656183 \nC 9.519899 7.64391 9.484378 7.632953 9.448483 7.623335 \nL 9.062784 9.062784 \nz\n\" style=\"fill: #ffa500\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_6\"\u003e\n    \u003cpath d=\"M 9.448483 7.623335 \nC 9.403612 7.611312 9.358203 7.601393 9.312406 7.593612 \nC 9.266608 7.585831 9.220473 7.580195 9.174149 7.576724 \nL 9.062784 9.062784 \nz\n\" style=\"fill: #ffff00\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_7\"\u003e\n    \u003cpath d=\"M 9.174149 7.576724 \nC 9.155622 7.575335 9.137071 7.574294 9.118505 7.573599 \nC 9.09994 7.572904 9.081363 7.572557 9.062784 7.572557 \nL 9.062784 9.062784 \nz\n\" style=\"fill: #808080\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"matplotlib.axis_1\"/\u003e\n   \u003cg id=\"matplotlib.axis_2\"/\u003e\n  \u003c/g\u003e\n \u003c/g\u003e\n\u003c/svg\u003e\n\u003c/div\u003e",
+  "iconSize": [3.36, 3.36],
+  "className": "empty",
+});
+            marker_7405f0d54f7b6de5286c7f1fd7d90b21.setIcon(div_icon_c35ff3cab56e251d717c37145135654b);
+        
+    
+        var popup_75d77b4a8a516a19688fc5e379a7656c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4e19a31f000f446026e5174b83c464cc = $(`<div id="html_4e19a31f000f446026e5174b83c464cc" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; font-size: 14px;">         <b style="font-size: 16px; color: darkblue;">St James College</b><br>                          <b>Total votes:</b> 168<br>                                  <b>Last election Australian Labor Party primary:</b> 57<br><b>Last election Liberal National Party of Queensland primary:</b> 53<br><b>Last election Queensland Greens primary:</b> 47<br><b>Last election Pauline Hanson's One Nation primary:</b> 4<br><b>Last election United Australia Party primary:</b> 5<br><b>Last election Other primary:</b> 2<br>             </div>         </div>`)[0];
+                popup_75d77b4a8a516a19688fc5e379a7656c.setContent(html_4e19a31f000f446026e5174b83c464cc);
+            
+        
+
+        marker_7405f0d54f7b6de5286c7f1fd7d90b21.bindPopup(popup_75d77b4a8a516a19688fc5e379a7656c)
+        ;
+
+        
+    
+    
+                marker_7405f0d54f7b6de5286c7f1fd7d90b21.setIcon(div_icon_c35ff3cab56e251d717c37145135654b);
+            
+    
+            var marker_0dea4019b4c2827e5e33300a720456af = L.marker(
+                [-27.50496551, 153.06112528],
+                {
+}
+            ).addTo(map_2513680fb50cd1a3dd123e354273cd8b);
+        
+    
+            var div_icon_af34e64731529838bb6b3b575ff76928 = L.divIcon({
+  "html": "\u003cdiv\u003e\u003c?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?\u003e\n\u003c!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"\u003e\n\u003csvg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"59.040288pt\" height=\"59.040288pt\" viewBox=\"0 0 59.040288 59.040288\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"\u003e\n \u003cmetadata\u003e\n  \u003crdf:RDF xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\u003e\n   \u003ccc:Work\u003e\n    \u003cdc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\"/\u003e\n    \u003cdc:date\u003e2025-04-07T19:53:51.687479\u003c/dc:date\u003e\n    \u003cdc:format\u003eimage/svg+xml\u003c/dc:format\u003e\n    \u003cdc:creator\u003e\n     \u003ccc:Agent\u003e\n      \u003cdc:title\u003eMatplotlib v3.10.1, https://matplotlib.org/\u003c/dc:title\u003e\n     \u003c/cc:Agent\u003e\n    \u003c/dc:creator\u003e\n   \u003c/cc:Work\u003e\n  \u003c/rdf:RDF\u003e\n \u003c/metadata\u003e\n \u003cdefs\u003e\n  \u003cstyle type=\"text/css\"\u003e*{stroke-linejoin: round; stroke-linecap: butt}\u003c/style\u003e\n \u003c/defs\u003e\n \u003cg id=\"figure_1\"\u003e\n  \u003cg id=\"patch_1\"\u003e\n   \u003cpath d=\"M 0 59.040288 \nL 59.040288 59.040288 \nL 59.040288 0 \nL 0 0 \nL 0 59.040288 \nz\n\" style=\"fill: none\"/\u003e\n  \u003c/g\u003e\n  \u003cg id=\"axes_1\"\u003e\n   \u003cg id=\"patch_2\"\u003e\n    \u003cpath d=\"M 29.520144 11.664029 \nC 26.541718 11.664029 23.61009 12.409237 20.993208 13.831542 \nC 18.376327 15.253848 16.156426 17.308555 14.536404 19.807864 \nC 12.916382 22.307174 11.947146 25.172547 11.717284 28.142089 \nC 11.487423 31.111632 12.004159 34.092029 13.220263 36.810873 \nL 29.520144 29.520144 \nz\n\" style=\"fill: #ff0000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_3\"\u003e\n    \u003cpath d=\"M 13.220263 36.810873 \nC 14.303717 39.23315 15.913622 41.383733 17.932535 43.105732 \nC 19.951449 44.827731 22.329056 46.078236 24.891915 46.766024 \nC 27.454773 47.453811 30.139011 47.561738 32.748816 47.081936 \nC 35.358622 46.602132 37.828952 45.546555 39.979602 43.992207 \nL 29.520144 29.520144 \nz\n\" style=\"fill: #0000ff\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_4\"\u003e\n    \u003cpath d=\"M 39.979602 43.992207 \nC 42.405029 42.239267 44.35131 39.904404 45.638909 37.202999 \nC 46.926508 34.501594 47.514574 31.519342 47.348861 28.53136 \nC 47.183147 25.543378 46.268912 22.644453 44.690489 20.101997 \nC 43.112066 17.559543 40.919532 15.454218 38.31514 13.980231 \nL 29.520144 29.520144 \nz\n\" style=\"fill: #008000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_5\"\u003e\n    \u003cpath d=\"M 38.31514 13.980231 \nC 37.862357 13.723973 37.398587 13.487626 36.925165 13.271867 \nC 36.451743 13.056109 35.969121 12.861146 35.478673 12.687534 \nL 29.520144 29.520144 \nz\n\" style=\"fill: #ffa500\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_6\"\u003e\n    \u003cpath d=\"M 35.478673 12.687534 \nC 35.128379 12.563535 34.774303 12.450501 34.416955 12.348596 \nC 34.059607 12.24669 33.699161 12.155964 33.336152 12.076551 \nL 29.520144 29.520144 \nz\n\" style=\"fill: #ffff00\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_7\"\u003e\n    \u003cpath d=\"M 33.336152 12.076551 \nC 32.709864 11.939543 32.076647 11.836361 31.439261 11.767458 \nC 30.801876 11.698555 30.161246 11.664029 29.520146 11.664029 \nL 29.520144 29.520144 \nz\n\" style=\"fill: #808080\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"matplotlib.axis_1\"/\u003e\n   \u003cg id=\"matplotlib.axis_2\"/\u003e\n  \u003c/g\u003e\n \u003c/g\u003e\n\u003c/svg\u003e\n\u003c/div\u003e",
+  "iconSize": [40.26, 40.26],
+  "className": "empty",
+});
+            marker_0dea4019b4c2827e5e33300a720456af.setIcon(div_icon_af34e64731529838bb6b3b575ff76928);
+        
+    
+        var popup_1e860a01d59fd05a4b9c2f9e108f3e6d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4e5dd08d0ed32d413607dd2d465b546a = $(`<div id="html_4e5dd08d0ed32d413607dd2d465b546a" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; font-size: 14px;">         <b style="font-size: 16px; color: darkblue;">St Stephen's Anglican Church of Australia</b><br>                          <b>Total votes:</b> 2013<br>                                  <b>Last election Australian Labor Party primary:</b> 638<br><b>Last election Liberal National Party of Queensland primary:</b> 569<br><b>Last election Queensland Greens primary:</b> 641<br><b>Last election Pauline Hanson's One Nation primary:</b> 56<br><b>Last election United Australia Party primary:</b> 40<br><b>Last election Other primary:</b> 69<br>             </div>         </div>`)[0];
+                popup_1e860a01d59fd05a4b9c2f9e108f3e6d.setContent(html_4e5dd08d0ed32d413607dd2d465b546a);
+            
+        
+
+        marker_0dea4019b4c2827e5e33300a720456af.bindPopup(popup_1e860a01d59fd05a4b9c2f9e108f3e6d)
+        ;
+
+        
+    
+    
+                marker_0dea4019b4c2827e5e33300a720456af.setIcon(div_icon_af34e64731529838bb6b3b575ff76928);
+            
+    
+            var marker_ec99d95189d946e7b5f30f3fd57623ee = L.marker(
+                [-35.27721071, 149.13102137],
+                {
+}
+            ).addTo(map_2513680fb50cd1a3dd123e354273cd8b);
+        
+    
+            var div_icon_a7042c5b563e60becd62c7ae362f479e = L.divIcon({
+  "html": "\u003cdiv\u003e\u003c?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?\u003e\n\u003c!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"\u003e\n\u003csvg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"21.6072pt\" height=\"21.6072pt\" viewBox=\"0 0 21.6072 21.6072\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"\u003e\n \u003cmetadata\u003e\n  \u003crdf:RDF xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\u003e\n   \u003ccc:Work\u003e\n    \u003cdc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\"/\u003e\n    \u003cdc:date\u003e2025-04-07T19:53:51.722846\u003c/dc:date\u003e\n    \u003cdc:format\u003eimage/svg+xml\u003c/dc:format\u003e\n    \u003cdc:creator\u003e\n     \u003ccc:Agent\u003e\n      \u003cdc:title\u003eMatplotlib v3.10.1, https://matplotlib.org/\u003c/dc:title\u003e\n     \u003c/cc:Agent\u003e\n    \u003c/dc:creator\u003e\n   \u003c/cc:Work\u003e\n  \u003c/rdf:RDF\u003e\n \u003c/metadata\u003e\n \u003cdefs\u003e\n  \u003cstyle type=\"text/css\"\u003e*{stroke-linejoin: round; stroke-linecap: butt}\u003c/style\u003e\n \u003c/defs\u003e\n \u003cg id=\"figure_1\"\u003e\n  \u003cg id=\"patch_1\"\u003e\n   \u003cpath d=\"M 0 21.6072 \nL 21.6072 21.6072 \nL 21.6072 0 \nL 0 0 \nL 0 21.6072 \nz\n\" style=\"fill: none\"/\u003e\n  \u003c/g\u003e\n  \u003cg id=\"axes_1\"\u003e\n   \u003cg id=\"patch_2\"\u003e\n    \u003cpath d=\"M 10.8036 7.92072 \nC 10.209155 7.92072 9.629012 8.104581 9.14308 8.446977 \nC 8.657148 8.789374 8.288811 9.27383 8.088802 9.833617 \nC 7.888793 10.393404 7.866737 11.001585 8.025673 11.574389 \nC 8.184608 12.147194 8.516887 12.657057 8.976741 13.033753 \nL 10.8036 10.8036 \nz\n\" style=\"fill: #ff0000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_3\"\u003e\n    \u003cpath d=\"M 8.976741 13.033753 \nC 9.27958 13.281828 9.6298 13.465638 10.005994 13.573947 \nC 10.382188 13.682256 10.776532 13.712812 11.164921 13.663748 \nC 11.553309 13.614683 11.927665 13.487017 12.265105 13.288555 \nC 12.602545 13.090093 12.89605 12.824961 13.127682 12.509367 \nL 10.8036 10.8036 \nz\n\" style=\"fill: #0000ff\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_4\"\u003e\n    \u003cpath d=\"M 13.127682 12.509367 \nC 13.367645 12.182421 13.535938 11.808489 13.621536 11.412068 \nC 13.707134 11.015648 13.708125 10.60559 13.624444 10.20876 \nC 13.540764 9.81193 13.374279 9.437188 13.135899 9.109086 \nC 12.897519 8.780984 12.592565 8.506846 12.241017 8.304634 \nL 10.8036 10.8036 \nz\n\" style=\"fill: #008000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_5\"\u003e\n    \u003cpath d=\"M 12.241017 8.304634 \nC 12.200755 8.281475 12.159939 8.259293 12.118605 8.238106 \nC 12.077271 8.216919 12.035431 8.196735 11.993121 8.177569 \nL 10.8036 10.8036 \nz\n\" style=\"fill: #ffa500\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_6\"\u003e\n    \u003cpath d=\"M 11.993121 8.177569 \nC 11.916956 8.143069 11.839325 8.111897 11.76045 8.084145 \nC 11.681575 8.056393 11.601531 8.032085 11.520542 8.011291 \nL 10.8036 10.8036 \nz\n\" style=\"fill: #ffff00\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_7\"\u003e\n    \u003cpath d=\"M 11.520542 8.011291 \nC 11.40354 7.98125 11.284765 7.958592 11.16492 7.943452 \nC 11.045075 7.928312 10.924398 7.92072 10.8036 7.92072 \nL 10.8036 10.8036 \nz\n\" style=\"fill: #808080\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"matplotlib.axis_1\"/\u003e\n   \u003cg id=\"matplotlib.axis_2\"/\u003e\n  \u003c/g\u003e\n \u003c/g\u003e\n\u003c/svg\u003e\n\u003c/div\u003e",
+  "iconSize": [6.5, 6.5],
+  "className": "empty",
+});
+            marker_ec99d95189d946e7b5f30f3fd57623ee.setIcon(div_icon_a7042c5b563e60becd62c7ae362f479e);
+        
+    
+        var popup_b5545eb7a8b47d82c98a4a9a784e9eb8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2fb30ef1e665e7c9a4c8c505bf515739 = $(`<div id="html_2fb30ef1e665e7c9a4c8c505bf515739" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; font-size: 14px;">         <b style="font-size: 16px; color: darkblue;">AEC National EAV2 Centre</b><br>                          <b>Total votes:</b> 325<br>                                  <b>Last election Australian Labor Party primary:</b> 127<br><b>Last election Liberal National Party of Queensland primary:</b> 84<br><b>Last election Queensland Greens primary:</b> 87<br><b>Last election Pauline Hanson's One Nation primary:</b> 5<br><b>Last election United Australia Party primary:</b> 9<br><b>Last election Other primary:</b> 13<br>             </div>         </div>`)[0];
+                popup_b5545eb7a8b47d82c98a4a9a784e9eb8.setContent(html_2fb30ef1e665e7c9a4c8c505bf515739);
+            
+        
+
+        marker_ec99d95189d946e7b5f30f3fd57623ee.bindPopup(popup_b5545eb7a8b47d82c98a4a9a784e9eb8)
+        ;
+
+        
+    
+    
+                marker_ec99d95189d946e7b5f30f3fd57623ee.setIcon(div_icon_a7042c5b563e60becd62c7ae362f479e);
+            
+    
+            var marker_58f1879ef7e68c5604ff60af7a5ad676 = L.marker(
+                [-35.27731412, 149.13122656],
+                {
+}
+            ).addTo(map_2513680fb50cd1a3dd123e354273cd8b);
+        
+    
+            var div_icon_0a6fc8a1adf5e0d30caf0be25cd35823 = L.divIcon({
+  "html": "\u003cdiv\u003e\u003c?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?\u003e\n\u003c!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"\u003e\n\u003csvg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"15.486624pt\" height=\"15.486624pt\" viewBox=\"0 0 15.486624 15.486624\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"\u003e\n \u003cmetadata\u003e\n  \u003crdf:RDF xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\u003e\n   \u003ccc:Work\u003e\n    \u003cdc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\"/\u003e\n    \u003cdc:date\u003e2025-04-07T19:53:51.752910\u003c/dc:date\u003e\n    \u003cdc:format\u003eimage/svg+xml\u003c/dc:format\u003e\n    \u003cdc:creator\u003e\n     \u003ccc:Agent\u003e\n      \u003cdc:title\u003eMatplotlib v3.10.1, https://matplotlib.org/\u003c/dc:title\u003e\n     \u003c/cc:Agent\u003e\n    \u003c/dc:creator\u003e\n   \u003c/cc:Work\u003e\n  \u003c/rdf:RDF\u003e\n \u003c/metadata\u003e\n \u003cdefs\u003e\n  \u003cstyle type=\"text/css\"\u003e*{stroke-linejoin: round; stroke-linecap: butt}\u003c/style\u003e\n \u003c/defs\u003e\n \u003cg id=\"figure_1\"\u003e\n  \u003cg id=\"patch_1\"\u003e\n   \u003cpath d=\"M 0 15.486624 \nL 15.486624 15.486624 \nL 15.486624 0 \nL 0 0 \nL 0 15.486624 \nz\n\" style=\"fill: none\"/\u003e\n  \u003c/g\u003e\n  \u003cg id=\"axes_1\"\u003e\n   \u003cg id=\"patch_2\"\u003e\n    \u003cpath d=\"M 7.743312 7.308662 \nC 7.640086 7.308662 7.540161 7.345436 7.46156 7.41235 \nC 7.382959 7.479264 7.330709 7.572039 7.314234 7.673942 \nC 7.297759 7.775845 7.318113 7.880358 7.371625 7.968631 \nC 7.425136 8.056904 7.508383 8.123291 7.60635 8.155819 \nL 7.743312 7.743312 \nz\n\" style=\"fill: #ff0000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_3\"\u003e\n    \u003cpath d=\"M 7.60635 8.155819 \nC 7.686239 8.182344 7.772139 8.185098 7.853563 8.163746 \nC 7.934987 8.142394 8.008481 8.097842 8.065074 8.035527 \nC 8.121666 7.973213 8.158956 7.89578 8.17239 7.812682 \nC 8.185825 7.729584 8.174835 7.644345 8.140761 7.567373 \nL 7.743312 7.743312 \nz\n\" style=\"fill: #0000ff\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_4\"\u003e\n    \u003cpath d=\"M 8.140761 7.567373 \nC 8.129472 7.541871 8.115755 7.517515 8.099799 7.494642 \nC 8.083844 7.471768 8.065724 7.450483 8.04569 7.431082 \nL 7.743312 7.743312 \nz\n\" style=\"fill: #008000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_5\"\u003e\n    \u003cpath d=\"M 8.04569 7.431082 \nC 8.025656 7.41168 8.003802 7.394252 7.980428 7.379037 \nC 7.957055 7.363823 7.932272 7.350894 7.906422 7.340428 \nL 7.743312 7.743312 \nz\n\" style=\"fill: #ffa500\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_6\"\u003e\n    \u003cpath d=\"M 7.906422 7.340428 \nC 7.897811 7.336942 7.88909 7.333733 7.880274 7.330805 \nC 7.871457 7.327878 7.862549 7.325234 7.853563 7.322878 \nL 7.743312 7.743312 \nz\n\" style=\"fill: #ffff00\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_7\"\u003e\n    \u003cpath d=\"M 7.853563 7.322878 \nC 7.835586 7.318164 7.817326 7.314607 7.798894 7.312231 \nC 7.780462 7.309854 7.761897 7.308662 7.743312 7.308662 \nL 7.743312 7.743312 \nz\n\" style=\"fill: #808080\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"matplotlib.axis_1\"/\u003e\n   \u003cg id=\"matplotlib.axis_2\"/\u003e\n  \u003c/g\u003e\n \u003c/g\u003e\n\u003c/svg\u003e\n\u003c/div\u003e",
+  "iconSize": [0.98, 0.98],
+  "className": "empty",
+});
+            marker_58f1879ef7e68c5604ff60af7a5ad676.setIcon(div_icon_0a6fc8a1adf5e0d30caf0be25cd35823);
+        
+    
+        var popup_42bc8f29817ca5d74378ca21a075e3a3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5dac2336ea17f760405cc521dad57f7e = $(`<div id="html_5dac2336ea17f760405cc521dad57f7e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; font-size: 14px;">         <b style="font-size: 16px; color: darkblue;">AEC National EAV Centre</b><br>                          <b>Total votes:</b> 49<br>                                  <b>Last election Australian Labor Party primary:</b> 22<br><b>Last election Liberal National Party of Queensland primary:</b> 18<br><b>Last election Queensland Greens primary:</b> 3<br><b>Last election Pauline Hanson's One Nation primary:</b> 3<br><b>Last election United Australia Party primary:</b> 1<br><b>Last election Other primary:</b> 2<br>             </div>         </div>`)[0];
+                popup_42bc8f29817ca5d74378ca21a075e3a3.setContent(html_5dac2336ea17f760405cc521dad57f7e);
+            
+        
+
+        marker_58f1879ef7e68c5604ff60af7a5ad676.bindPopup(popup_42bc8f29817ca5d74378ca21a075e3a3)
+        ;
+
+        
+    
+    
+                marker_58f1879ef7e68c5604ff60af7a5ad676.setIcon(div_icon_0a6fc8a1adf5e0d30caf0be25cd35823);
+            
+    
+            var marker_8edf9203892ddbdd84d3b35fcfc46c04 = L.marker(
+                [-27.50330457, 152.97983342],
+                {
+}
+            ).addTo(map_2513680fb50cd1a3dd123e354273cd8b);
+        
+    
+            var div_icon_cc23295063b1d6df7eb6ad65a193d2d1 = L.divIcon({
+  "html": "\u003cdiv\u003e\u003c?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?\u003e\n\u003c!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"\u003e\n\u003csvg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"61.479648pt\" height=\"61.479648pt\" viewBox=\"0 0 61.479648 61.479648\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"\u003e\n \u003cmetadata\u003e\n  \u003crdf:RDF xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\u003e\n   \u003ccc:Work\u003e\n    \u003cdc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\"/\u003e\n    \u003cdc:date\u003e2025-04-07T19:53:51.781850\u003c/dc:date\u003e\n    \u003cdc:format\u003eimage/svg+xml\u003c/dc:format\u003e\n    \u003cdc:creator\u003e\n     \u003ccc:Agent\u003e\n      \u003cdc:title\u003eMatplotlib v3.10.1, https://matplotlib.org/\u003c/dc:title\u003e\n     \u003c/cc:Agent\u003e\n    \u003c/dc:creator\u003e\n   \u003c/cc:Work\u003e\n  \u003c/rdf:RDF\u003e\n \u003c/metadata\u003e\n \u003cdefs\u003e\n  \u003cstyle type=\"text/css\"\u003e*{stroke-linejoin: round; stroke-linecap: butt}\u003c/style\u003e\n \u003c/defs\u003e\n \u003cg id=\"figure_1\"\u003e\n  \u003cg id=\"patch_1\"\u003e\n   \u003cpath d=\"M 0 61.479648 \nL 61.479648 61.479648 \nL 61.479648 0 \nL 0 0 \nL 0 61.479648 \nz\n\" style=\"fill: none\"/\u003e\n  \u003c/g\u003e\n  \u003cg id=\"axes_1\"\u003e\n   \u003cg id=\"patch_2\"\u003e\n    \u003cpath d=\"M 30.739824 11.907965 \nC 27.969919 11.907965 25.233824 12.519087 22.727155 13.697639 \nC 20.220486 14.876192 18.004438 16.593403 16.237444 18.726502 \nC 14.470451 20.859601 13.195651 23.356512 12.504184 26.038722 \nC 11.812717 28.720932 11.721465 31.522959 12.23695 34.244475 \nL 30.739824 30.739824 \nz\n\" style=\"fill: #ff0000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_3\"\u003e\n    \u003cpath d=\"M 12.23695 34.244473 \nC 13.081591 38.703773 15.510483 42.710825 19.073205 45.522548 \nC 22.635926 48.334271 27.097742 49.76541 31.631241 49.550573 \nC 36.164741 49.335736 40.471232 47.489075 43.752096 44.353042 \nC 47.032961 41.21701 49.072039 36.998228 49.491199 32.479038 \nL 30.739824 30.739824 \nz\n\" style=\"fill: #0000ff\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_4\"\u003e\n    \u003cpath d=\"M 49.491199 32.479038 \nC 49.885188 28.231249 48.824327 23.973098 46.483529 20.406642 \nC 44.142731 16.840186 40.658123 14.172833 36.604225 12.844358 \nL 30.739824 30.739824 \nz\n\" style=\"fill: #008000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_5\"\u003e\n    \u003cpath d=\"M 36.604225 12.844358 \nC 36.242283 12.725748 35.876826 12.618147 35.508359 12.521701 \nC 35.139891 12.425256 34.768582 12.340011 34.394945 12.266085 \nL 30.739824 30.739824 \nz\n\" style=\"fill: #ffa500\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_6\"\u003e\n    \u003cpath d=\"M 34.394945 12.266085 \nC 34.075994 12.202979 33.755467 12.148145 33.433677 12.101635 \nC 33.111887 12.055126 32.788942 12.016956 32.465176 11.987168 \nL 30.739824 30.739824 \nz\n\" style=\"fill: #ffff00\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_7\"\u003e\n    \u003cpath d=\"M 32.465176 11.987168 \nC 32.178414 11.960785 31.891089 11.940982 31.603419 11.927776 \nC 31.315748 11.914571 31.027809 11.907965 30.739836 11.907965 \nL 30.739824 30.739824 \nz\n\" style=\"fill: #808080\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"matplotlib.axis_1\"/\u003e\n   \u003cg id=\"matplotlib.axis_2\"/\u003e\n  \u003c/g\u003e\n \u003c/g\u003e\n\u003c/svg\u003e\n\u003c/div\u003e",
+  "iconSize": [42.46, 42.46],
+  "className": "empty",
+});
+            marker_8edf9203892ddbdd84d3b35fcfc46c04.setIcon(div_icon_cc23295063b1d6df7eb6ad65a193d2d1);
+        
+    
+        var popup_539f999b165f37ea3e1f1f01a04c2f62 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_47e8f46d18598bb1bfd8d8258df21cdc = $(`<div id="html_47e8f46d18598bb1bfd8d8258df21cdc" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; font-size: 14px;">         <b style="font-size: 16px; color: darkblue;">St Andrews Anglican Church</b><br>                          <b>Total votes:</b> 2123<br>                                  <b>Last election Australian Labor Party primary:</b> 594<br><b>Last election Liberal National Party of Queensland primary:</b> 967<br><b>Last election Queensland Greens primary:</b> 455<br><b>Last election Pauline Hanson's One Nation primary:</b> 41<br><b>Last election United Australia Party primary:</b> 35<br><b>Last election Other primary:</b> 31<br>             </div>         </div>`)[0];
+                popup_539f999b165f37ea3e1f1f01a04c2f62.setContent(html_47e8f46d18598bb1bfd8d8258df21cdc);
+            
+        
+
+        marker_8edf9203892ddbdd84d3b35fcfc46c04.bindPopup(popup_539f999b165f37ea3e1f1f01a04c2f62)
+        ;
+
+        
+    
+    
+                marker_8edf9203892ddbdd84d3b35fcfc46c04.setIcon(div_icon_cc23295063b1d6df7eb6ad65a193d2d1);
+            
+    
+            var marker_16aa4fcf01ba6bc5bebab3addfd117f6 = L.marker(
+                [-27.54659, 153.10684],
+                {
+}
+            ).addTo(map_2513680fb50cd1a3dd123e354273cd8b);
+        
+    
+            var div_icon_0d2bcf15f52f016c4c80fcb55dc7a09a = L.divIcon({
+  "html": "\u003cdiv\u003e\u003c?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?\u003e\n\u003c!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"\u003e\n\u003csvg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"62.277984pt\" height=\"62.277984pt\" viewBox=\"0 0 62.277984 62.277984\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"\u003e\n \u003cmetadata\u003e\n  \u003crdf:RDF xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\u003e\n   \u003ccc:Work\u003e\n    \u003cdc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\"/\u003e\n    \u003cdc:date\u003e2025-04-07T19:53:51.812931\u003c/dc:date\u003e\n    \u003cdc:format\u003eimage/svg+xml\u003c/dc:format\u003e\n    \u003cdc:creator\u003e\n     \u003ccc:Agent\u003e\n      \u003cdc:title\u003eMatplotlib v3.10.1, https://matplotlib.org/\u003c/dc:title\u003e\n     \u003c/cc:Agent\u003e\n    \u003c/dc:creator\u003e\n   \u003c/cc:Work\u003e\n  \u003c/rdf:RDF\u003e\n \u003c/metadata\u003e\n \u003cdefs\u003e\n  \u003cstyle type=\"text/css\"\u003e*{stroke-linejoin: round; stroke-linecap: butt}\u003c/style\u003e\n \u003c/defs\u003e\n \u003cg id=\"figure_1\"\u003e\n  \u003cg id=\"patch_1\"\u003e\n   \u003cpath d=\"M 0 62.277984 \nL 62.277984 62.277984 \nL 62.277984 0 \nL 0 0 \nL 0 62.277984 \nz\n\" style=\"fill: none\"/\u003e\n  \u003c/g\u003e\n  \u003cg id=\"axes_1\"\u003e\n   \u003cg id=\"patch_2\"\u003e\n    \u003cpath d=\"M 31.138992 11.987798 \nC 27.846758 11.987798 24.60948 12.836738 21.740918 14.452338 \nC 18.872357 16.067938 16.46828 18.396259 14.761693 21.21164 \nC 13.055107 24.027021 12.102986 27.235468 11.997611 30.526016 \nC 11.892236 33.816564 12.637124 37.079355 14.160082 39.998158 \nL 31.138992 31.138992 \nz\n\" style=\"fill: #ff0000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_3\"\u003e\n    \u003cpath d=\"M 14.160081 39.998157 \nC 16.219049 43.944244 19.590648 47.05172 23.691234 48.782662 \nC 27.791819 50.513605 32.370293 50.762016 36.634085 49.484895 \nC 40.897877 48.207774 44.5859 45.483324 47.059724 41.783169 \nC 49.533549 38.083013 50.641695 33.633737 50.192336 29.205528 \nL 31.138992 31.138992 \nz\n\" style=\"fill: #0000ff\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_4\"\u003e\n    \u003cpath d=\"M 50.192336 29.205528 \nC 49.926951 26.590287 49.125938 24.057474 47.839303 21.765207 \nC 46.552668 19.472941 44.807751 17.469934 42.713488 15.881231 \nL 31.138992 31.138992 \nz\n\" style=\"fill: #008000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_5\"\u003e\n    \u003cpath d=\"M 42.713488 15.881231 \nC 42.121273 15.431979 41.503402 15.017585 40.863017 14.640157 \nC 40.222632 14.262729 39.560819 13.922907 38.880931 13.622412 \nL 31.138992 31.138992 \nz\n\" style=\"fill: #ffa500\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_6\"\u003e\n    \u003cpath d=\"M 38.880931 13.622412 \nC 38.405078 13.412096 37.920854 13.221257 37.429461 13.050371 \nC 36.938069 12.879485 36.439917 12.728694 35.936245 12.598372 \nL 31.138992 31.138992 \nz\n\" style=\"fill: #ffff00\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_7\"\u003e\n    \u003cpath d=\"M 35.936245 12.598372 \nC 35.153601 12.395869 34.358919 12.243123 33.55697 12.141055 \nC 32.755021 12.038987 31.947413 11.987798 31.138995 11.987798 \nL 31.138992 31.138992 \nz\n\" style=\"fill: #808080\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"matplotlib.axis_1\"/\u003e\n   \u003cg id=\"matplotlib.axis_2\"/\u003e\n  \u003c/g\u003e\n \u003c/g\u003e\n\u003c/svg\u003e\n\u003c/div\u003e",
+  "iconSize": [43.18, 43.18],
+  "className": "empty",
+});
+            marker_16aa4fcf01ba6bc5bebab3addfd117f6.setIcon(div_icon_0d2bcf15f52f016c4c80fcb55dc7a09a);
+        
+    
+        var popup_912ec23b917b5c802451dd73984a2082 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c68cb890dc92f1b677f1ed36aebf607a = $(`<div id="html_c68cb890dc92f1b677f1ed36aebf607a" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; font-size: 14px;">         <b style="font-size: 16px; color: darkblue;">Broadwater Rd Uniting Church</b><br>                          <b>Total votes:</b> 2159<br>                                  <b>Last election Australian Labor Party primary:</b> 705<br><b>Last election Liberal National Party of Queensland primary:</b> 949<br><b>Last election Queensland Greens primary:</b> 282<br><b>Last election Pauline Hanson's One Nation primary:</b> 80<br><b>Last election United Australia Party primary:</b> 56<br><b>Last election Other primary:</b> 87<br>             </div>         </div>`)[0];
+                popup_912ec23b917b5c802451dd73984a2082.setContent(html_c68cb890dc92f1b677f1ed36aebf607a);
+            
+        
+
+        marker_16aa4fcf01ba6bc5bebab3addfd117f6.bindPopup(popup_912ec23b917b5c802451dd73984a2082)
+        ;
+
+        
+    
+    
+                marker_16aa4fcf01ba6bc5bebab3addfd117f6.setIcon(div_icon_0d2bcf15f52f016c4c80fcb55dc7a09a);
+            
+    
+            var marker_0f9e85071da8a5357ea4581410f6d84a = L.marker(
+                [-27.5474, 153.020215],
+                {
+}
+            ).addTo(map_2513680fb50cd1a3dd123e354273cd8b);
+        
+    
+            var div_icon_6533c75ee691cfb95f86202c270c0935 = L.divIcon({
+  "html": "\u003cdiv\u003e\u003c?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?\u003e\n\u003c!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"\u003e\n\u003csvg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"241.349184pt\" height=\"241.349184pt\" viewBox=\"0 0 241.349184 241.349184\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"\u003e\n \u003cmetadata\u003e\n  \u003crdf:RDF xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\u003e\n   \u003ccc:Work\u003e\n    \u003cdc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\"/\u003e\n    \u003cdc:date\u003e2025-04-07T19:53:51.845751\u003c/dc:date\u003e\n    \u003cdc:format\u003eimage/svg+xml\u003c/dc:format\u003e\n    \u003cdc:creator\u003e\n     \u003ccc:Agent\u003e\n      \u003cdc:title\u003eMatplotlib v3.10.1, https://matplotlib.org/\u003c/dc:title\u003e\n     \u003c/cc:Agent\u003e\n    \u003c/dc:creator\u003e\n   \u003c/cc:Work\u003e\n  \u003c/rdf:RDF\u003e\n \u003c/metadata\u003e\n \u003cdefs\u003e\n  \u003cstyle type=\"text/css\"\u003e*{stroke-linejoin: round; stroke-linecap: butt}\u003c/style\u003e\n \u003c/defs\u003e\n \u003cg id=\"figure_1\"\u003e\n  \u003cg id=\"patch_1\"\u003e\n   \u003cpath d=\"M 0 241.349184 \nL 241.349184 241.349184 \nL 241.349184 0 \nL 0 0 \nL 0 241.349184 \nz\n\" style=\"fill: none\"/\u003e\n  \u003c/g\u003e\n  \u003cg id=\"axes_1\"\u003e\n   \u003cg id=\"patch_2\"\u003e\n    \u003cpath d=\"M 120.674592 29.894918 \nC 102.882294 29.894918 85.476547 35.125702 70.631785 44.933806 \nC 55.787024 54.741911 44.148274 68.70116 37.169522 85.067677 \nC 30.19077 101.434194 28.175252 119.496829 31.37476 136.999087 \nC 34.574268 154.501344 42.849778 170.682724 55.167462 183.521748 \nL 120.674592 120.674592 \nz\n\" style=\"fill: #ff0000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_3\"\u003e\n    \u003cpath d=\"M 55.167455 183.521741 \nC 66.635983 195.475669 81.16076 204.065419 97.161152 208.356217 \nC 113.161545 212.647021 130.03531 212.477368 145.946198 207.865731 \nC 161.857086 203.254094 176.206223 194.374055 187.432088 182.191955 \nC 198.657954 170.009855 206.338009 154.98423 209.636499 138.750209 \nL 120.674592 120.674592 \nz\n\" style=\"fill: #0000ff\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_4\"\u003e\n    \u003cpath d=\"M 209.636499 138.750209 \nC 212.932164 122.530103 211.729875 105.713376 206.160256 90.127081 \nC 200.590637 74.540785 190.862982 60.770562 178.034097 50.312409 \nL 120.674592 120.674592 \nz\n\" style=\"fill: #008000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_5\"\u003e\n    \u003cpath d=\"M 178.034097 50.312409 \nC 175.160471 47.969819 172.146031 45.805462 169.00772 43.831516 \nC 165.869409 41.857569 162.61312 40.077727 159.25715 38.501994 \nL 120.674592 120.674592 \nz\n\" style=\"fill: #ffa500\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_6\"\u003e\n    \u003cpath d=\"M 159.25715 38.501994 \nC 156.364007 37.143574 153.401138 35.938899 150.380928 34.892996 \nC 147.360718 33.847092 144.287376 32.961416 141.173747 32.239679 \nL 120.674592 120.674592 \nz\n\" style=\"fill: #ffff00\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_7\"\u003e\n    \u003cpath d=\"M 141.173747 32.239679 \nC 137.815614 31.461268 134.415847 30.874755 130.991009 30.483012 \nC 127.566171 30.091269 124.121818 29.894918 120.674648 29.894918 \nL 120.674592 120.674592 \nz\n\" style=\"fill: #808080\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"matplotlib.axis_1\"/\u003e\n   \u003cg id=\"matplotlib.axis_2\"/\u003e\n  \u003c/g\u003e\n \u003c/g\u003e\n\u003c/svg\u003e\n\u003c/div\u003e",
+  "iconSize": [204.68, 204.68],
+  "className": "empty",
+});
+            marker_0f9e85071da8a5357ea4581410f6d84a.setIcon(div_icon_6533c75ee691cfb95f86202c270c0935);
+        
+    
+        var popup_131f5cf4a9221086a57d75c5527ee510 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_96d56ee882330e1b57a8a207d70bb0e9 = $(`<div id="html_96d56ee882330e1b57a8a207d70bb0e9" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; font-size: 14px;">         <b style="font-size: 16px; color: darkblue;">The Construction Training Centre</b><br>                          <b>Total votes:</b> 10234<br>                                  <b>Last election Australian Labor Party primary:</b> 3804<br><b>Last election Liberal National Party of Queensland primary:</b> 3545<br><b>Last election Queensland Greens primary:</b> 1771<br><b>Last election Pauline Hanson's One Nation primary:</b> 399<br><b>Last election United Australia Party primary:</b> 344<br><b>Last election Other primary:</b> 371<br>             </div>         </div>`)[0];
+                popup_131f5cf4a9221086a57d75c5527ee510.setContent(html_96d56ee882330e1b57a8a207d70bb0e9);
+            
+        
+
+        marker_0f9e85071da8a5357ea4581410f6d84a.bindPopup(popup_131f5cf4a9221086a57d75c5527ee510)
+        ;
+
+        
+    
+    
+                marker_0f9e85071da8a5357ea4581410f6d84a.setIcon(div_icon_6533c75ee691cfb95f86202c270c0935);
+            
+    
+            var marker_65d891ea3441e9b047b241aabfc78037 = L.marker(
+                [-27.6133393, 153.12851118],
+                {
+}
+            ).addTo(map_2513680fb50cd1a3dd123e354273cd8b);
+        
+    
+            var div_icon_9164c750dd5b976efb73f4544a71ea62 = L.divIcon({
+  "html": "\u003cdiv\u003e\u003c?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?\u003e\n\u003c!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"\u003e\n\u003csvg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"73.188576pt\" height=\"73.188576pt\" viewBox=\"0 0 73.188576 73.188576\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"\u003e\n \u003cmetadata\u003e\n  \u003crdf:RDF xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\u003e\n   \u003ccc:Work\u003e\n    \u003cdc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\"/\u003e\n    \u003cdc:date\u003e2025-04-07T19:53:51.875204\u003c/dc:date\u003e\n    \u003cdc:format\u003eimage/svg+xml\u003c/dc:format\u003e\n    \u003cdc:creator\u003e\n     \u003ccc:Agent\u003e\n      \u003cdc:title\u003eMatplotlib v3.10.1, https://matplotlib.org/\u003c/dc:title\u003e\n     \u003c/cc:Agent\u003e\n    \u003c/dc:creator\u003e\n   \u003c/cc:Work\u003e\n  \u003c/rdf:RDF\u003e\n \u003c/metadata\u003e\n \u003cdefs\u003e\n  \u003cstyle type=\"text/css\"\u003e*{stroke-linejoin: round; stroke-linecap: butt}\u003c/style\u003e\n \u003c/defs\u003e\n \u003cg id=\"figure_1\"\u003e\n  \u003cg id=\"patch_1\"\u003e\n   \u003cpath d=\"M 0 73.188576 \nL 73.188576 73.188576 \nL 73.188576 0 \nL 0 0 \nL 0 73.188576 \nz\n\" style=\"fill: none\"/\u003e\n  \u003c/g\u003e\n  \u003cg id=\"axes_1\"\u003e\n   \u003cg id=\"patch_2\"\u003e\n    \u003cpath d=\"M 36.594288 13.078858 \nC 31.683309 13.078858 26.893559 14.617276 22.901086 17.476974 \nC 18.908612 20.336672 15.910527 24.376464 14.329993 29.026155 \nC 12.749459 33.675847 12.664508 38.705878 14.087131 43.406289 \nC 15.509754 48.106699 18.369715 52.245426 22.263346 55.23831 \nL 36.594288 36.594288 \nz\n\" style=\"fill: #ff0000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_3\"\u003e\n    \u003cpath d=\"M 22.263348 55.238311 \nC 25.964922 58.083569 30.431308 59.763024 35.090493 60.061586 \nC 39.749678 60.36015 44.393882 59.26451 48.428342 56.914983 \nC 52.462801 54.565456 55.707597 51.066815 57.747162 46.867136 \nC 59.786727 42.667456 60.530115 37.954012 59.882115 33.330459 \nL 36.594288 36.594288 \nz\n\" style=\"fill: #0000ff\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_4\"\u003e\n    \u003cpath d=\"M 59.882115 33.330459 \nC 59.530673 30.822884 58.776516 28.388458 57.648817 26.121358 \nC 56.521118 23.854259 55.034608 21.784107 53.246808 19.991004 \nL 36.594288 36.594288 \nz\n\" style=\"fill: #008000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_5\"\u003e\n    \u003cpath d=\"M 53.246808 19.991004 \nC 52.623575 19.365923 51.965637 18.776424 51.276125 18.225316 \nC 50.586613 17.674209 49.866623 17.162362 49.119563 16.692204 \nL 36.594288 36.594288 \nz\n\" style=\"fill: #ffa500\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_6\"\u003e\n    \u003cpath d=\"M 49.119563 16.692204 \nC 48.356766 16.212141 47.566995 15.776327 46.754169 15.386924 \nC 45.941344 14.997521 45.106809 14.655171 44.254684 14.361568 \nL 36.594288 36.594288 \nz\n\" style=\"fill: #ffff00\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_7\"\u003e\n    \u003cpath d=\"M 44.254684 14.361568 \nC 43.02445 13.937685 41.761146 13.616643 40.477801 13.401751 \nC 39.194457 13.186859 37.895492 13.078858 36.59428 13.078858 \nL 36.594288 36.594288 \nz\n\" style=\"fill: #808080\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"matplotlib.axis_1\"/\u003e\n   \u003cg id=\"matplotlib.axis_2\"/\u003e\n  \u003c/g\u003e\n \u003c/g\u003e\n\u003c/svg\u003e\n\u003c/div\u003e",
+  "iconSize": [53.02, 53.02],
+  "className": "empty",
+});
+            marker_65d891ea3441e9b047b241aabfc78037.setIcon(div_icon_9164c750dd5b976efb73f4544a71ea62);
+        
+    
+        var popup_689bf2ca18eaaa6cab3ebf304c31dc27 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a01d7f698ab96a3a5b2c2e7dfdc84115 = $(`<div id="html_a01d7f698ab96a3a5b2c2e7dfdc84115" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; font-size: 14px;">         <b style="font-size: 16px; color: darkblue;">Springwood Community Centre</b><br>                          <b>Total votes:</b> 2651<br>                                  <b>Last election Australian Labor Party primary:</b> 1049<br><b>Last election Liberal National Party of Queensland primary:</b> 998<br><b>Last election Queensland Greens primary:</b> 272<br><b>Last election Pauline Hanson's One Nation primary:</b> 95<br><b>Last election United Australia Party primary:</b> 97<br><b>Last election Other primary:</b> 140<br>             </div>         </div>`)[0];
+                popup_689bf2ca18eaaa6cab3ebf304c31dc27.setContent(html_a01d7f698ab96a3a5b2c2e7dfdc84115);
+            
+        
+
+        marker_65d891ea3441e9b047b241aabfc78037.bindPopup(popup_689bf2ca18eaaa6cab3ebf304c31dc27)
+        ;
+
+        
+    
+    
+                marker_65d891ea3441e9b047b241aabfc78037.setIcon(div_icon_9164c750dd5b976efb73f4544a71ea62);
+            
+    
+            var marker_c5c4e2250436c1e443ec82f4510b4813 = L.marker(
+                [-27.65074967, 153.12594571],
+                {
+}
+            ).addTo(map_2513680fb50cd1a3dd123e354273cd8b);
+        
+    
+            var div_icon_6cb82a3507791c5a73f00ca7ad5688a5 = L.divIcon({
+  "html": "\u003cdiv\u003e\u003c?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?\u003e\n\u003c!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"\u003e\n\u003csvg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"21.074976pt\" height=\"21.074976pt\" viewBox=\"0 0 21.074976 21.074976\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"\u003e\n \u003cmetadata\u003e\n  \u003crdf:RDF xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\u003e\n   \u003ccc:Work\u003e\n    \u003cdc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\"/\u003e\n    \u003cdc:date\u003e2025-04-07T19:53:51.905398\u003c/dc:date\u003e\n    \u003cdc:format\u003eimage/svg+xml\u003c/dc:format\u003e\n    \u003cdc:creator\u003e\n     \u003ccc:Agent\u003e\n      \u003cdc:title\u003eMatplotlib v3.10.1, https://matplotlib.org/\u003c/dc:title\u003e\n     \u003c/cc:Agent\u003e\n    \u003c/dc:creator\u003e\n   \u003c/cc:Work\u003e\n  \u003c/rdf:RDF\u003e\n \u003c/metadata\u003e\n \u003cdefs\u003e\n  \u003cstyle type=\"text/css\"\u003e*{stroke-linejoin: round; stroke-linecap: butt}\u003c/style\u003e\n \u003c/defs\u003e\n \u003cg id=\"figure_1\"\u003e\n  \u003cg id=\"patch_1\"\u003e\n   \u003cpath d=\"M 0 21.074976 \nL 21.074976 21.074976 \nL 21.074976 0 \nL 0 0 \nL 0 21.074976 \nz\n\" style=\"fill: none\"/\u003e\n  \u003c/g\u003e\n  \u003cg id=\"axes_1\"\u003e\n   \u003cg id=\"patch_2\"\u003e\n    \u003cpath d=\"M 10.537488 7.867498 \nC 9.894492 7.867498 9.272646 8.09977 8.787102 8.521304 \nC 8.301558 8.942838 7.984258 9.525901 7.893958 10.162525 \nC 7.803658 10.799149 7.946299 11.447451 8.295467 11.987382 \nC 8.644636 12.527313 9.177361 12.923352 9.794994 13.102162 \nL 10.537488 10.537488 \nz\n\" style=\"fill: #ff0000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_3\"\u003e\n    \u003cpath d=\"M 9.794994 13.102162 \nC 10.139668 13.201948 10.500947 13.231235 10.857193 13.188269 \nC 11.213439 13.145303 11.557394 13.030959 11.86846 12.852086 \nC 12.179525 12.673213 12.451363 12.433454 12.667693 12.14717 \nC 12.884023 11.860885 13.040437 11.533907 13.127568 11.185819 \nL 10.537488 10.537488 \nz\n\" style=\"fill: #0000ff\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_4\"\u003e\n    \u003cpath d=\"M 13.127568 11.185819 \nC 13.168198 11.023502 13.19348 10.857724 13.20308 10.690674 \nC 13.21268 10.523624 13.206556 10.356041 13.184788 10.190137 \nL 10.537488 10.537488 \nz\n\" style=\"fill: #008000\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_5\"\u003e\n    \u003cpath d=\"M 13.184788 10.190137 \nC 13.164231 10.033462 13.129805 9.878921 13.081917 9.728334 \nC 13.034029 9.577747 12.972867 9.431709 12.899152 9.291938 \nL 10.537488 10.537488 \nz\n\" style=\"fill: #ffa500\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_6\"\u003e\n    \u003cpath d=\"M 12.899152 9.291938 \nC 12.812406 9.127462 12.708715 8.972497 12.589768 8.829567 \nC 12.470821 8.686637 12.337268 8.556524 12.191283 8.441347 \nL 10.537488 10.537488 \nz\n\" style=\"fill: #ffff00\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"patch_7\"\u003e\n    \u003cpath d=\"M 12.191283 8.441347 \nC 11.957379 8.256803 11.694226 8.112705 11.412751 8.015036 \nC 11.131275 7.917367 10.835427 7.867498 10.537488 7.867498 \nL 10.537488 10.537488 \nz\n\" style=\"fill: #808080\"/\u003e\n   \u003c/g\u003e\n   \u003cg id=\"matplotlib.axis_1\"/\u003e\n   \u003cg id=\"matplotlib.axis_2\"/\u003e\n  \u003c/g\u003e\n \u003c/g\u003e\n\u003c/svg\u003e\n\u003c/div\u003e",
+  "iconSize": [6.02, 6.02],
+  "className": "empty",
+});
+            marker_c5c4e2250436c1e443ec82f4510b4813.setIcon(div_icon_6cb82a3507791c5a73f00ca7ad5688a5);
+        
+    
+        var popup_9c0ee8cfbb70075f68476b63f45b7fe6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_14f9d62c40952c17c3982f3f2ed60ce1 = $(`<div id="html_14f9d62c40952c17c3982f3f2ed60ce1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; font-size: 14px;">         <b style="font-size: 16px; color: darkblue;">Queens Road Shopping Village</b><br>                          <b>Total votes:</b> 301<br>                                  <b>Last election Australian Labor Party primary:</b> 137<br><b>Last election Liberal National Party of Queensland primary:</b> 77<br><b>Last election Queensland Greens primary:</b> 18<br><b>Last election Pauline Hanson's One Nation primary:</b> 17<br><b>Last election United Australia Party primary:</b> 20<br><b>Last election Other primary:</b> 32<br>             </div>         </div>`)[0];
+                popup_9c0ee8cfbb70075f68476b63f45b7fe6.setContent(html_14f9d62c40952c17c3982f3f2ed60ce1);
+            
+        
+
+        marker_c5c4e2250436c1e443ec82f4510b4813.bindPopup(popup_9c0ee8cfbb70075f68476b63f45b7fe6)
+        ;
+
+        
+    
+    
+                marker_c5c4e2250436c1e443ec82f4510b4813.setIcon(div_icon_6cb82a3507791c5a73f00ca7ad5688a5);
+            
+</script>
+</html>

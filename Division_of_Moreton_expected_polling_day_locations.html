@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_d721f3adaabc0f182df79f7bb3f94707 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_d721f3adaabc0f182df79f7bb3f94707" ></div>
+        
+    
+        
+    <div style="position: fixed; 
+                bottom: 40px; left: 40px; width: 250px; height: 240px; 
+                background-color: white; z-index:9999; 
+                font-size:14px; padding: 10px; 
+                border-radius: 8px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+        <b>Polling Booth Legend</b><br>
+        <b>Circle Color:</b><br>
+        <div style="display: flex; align-items: center;">
+            <div style="background:blue; width: 15px; height: 15px; border-radius: 50%; margin-right: 5px;"></div> 
+            Full Wheelchair Access
+        </div>
+        <div style="display: flex; align-items: center;">
+            <div style="background:grey; width: 15px; height: 15px; border-radius: 50%; margin-right: 5px;"></div> 
+            Assisted Wheelchair Access
+        </div>
+        <div style="display: flex; align-items: center;">
+            <div style="background:red; width: 15px; height: 15px; border-radius: 50%; margin-right: 5px;"></div> 
+            No Wheelchair Access/No information
+        </div>
+        <b>Circle Size (Voter Estimate):</b><br>
+        <div style="display: flex; align-items: center;">
+            <div style="background:gray; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></div> 
+            ~500 votes
+        </div>
+        <div style="display: flex; align-items: center;">
+            <div style="background:gray; width: 20px; height: 20px; border-radius: 50%; margin-right: 5px;"></div> 
+            ~1,000 votes
+        </div>
+        <div style="display: flex; align-items: center;">
+            <div style="background:gray; width: 40px; height: 40px; border-radius: 50%; margin-right: 5px;"></div> 
+            ~2,000 votes
+        </div>
+    </div>
+    
+        
+</body>
+<script>
+    
+    
+            var map_d721f3adaabc0f182df79f7bb3f94707 = L.map(
+                "map_d721f3adaabc0f182df79f7bb3f94707",
+                {
+                    center: [-27.542335211770773, 153.0325],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13.5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_ed9320784c14d65b2e7f6464addf946d = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_ed9320784c14d65b2e7f6464addf946d.addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+            var circle_marker_0ff042140fa3cfd6a035635b94563a9c = L.circleMarker(
+                [-27.57953106578264, 153.01601605901809],
+                {"bubblingMouseEvents": true, "color": "grey", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "grey", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.47, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_99e9255a2be285cecfed6cae38e3ba47 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3b7b9f18ef2516286a5a8aa25868f20b = $(`<div id="html_3b7b9f18ef2516286a5a8aa25868f20b" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Acacia Ridge State School</b><br>                 <b>Estimated Ordinary Votes:</b> 837<br>                 <b>Estimated Declaration Votes:</b> 210<br>                 <b>Wheelchair Access:</b> Assisted             </div>         </div>`)[0];
+                popup_99e9255a2be285cecfed6cae38e3ba47.setContent(html_3b7b9f18ef2516286a5a8aa25868f20b);
+            
+        
+
+        circle_marker_0ff042140fa3cfd6a035635b94563a9c.bindPopup(popup_99e9255a2be285cecfed6cae38e3ba47)
+        ;
+
+        
+    
+    
+            var circle_marker_f0013aad9f0d443b621043384a3205c9 = L.circleMarker(
+                [-27.593127436233367, 153.01828874412573],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.61, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_2dbc35e89fefa224fbe147d9ac7d40df = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8ac35e54d6547933264d1ae3884b2930 = $(`<div id="html_8ac35e54d6547933264d1ae3884b2930" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Watson Road State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1473<br>                 <b>Estimated Declaration Votes:</b> 388<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_2dbc35e89fefa224fbe147d9ac7d40df.setContent(html_8ac35e54d6547933264d1ae3884b2930);
+            
+        
+
+        circle_marker_f0013aad9f0d443b621043384a3205c9.bindPopup(popup_2dbc35e89fefa224fbe147d9ac7d40df)
+        ;
+
+        
+    
+    
+            var circle_marker_ced5281df97c801f6f749143f2144155 = L.circleMarker(
+                [-27.50928387744168, 153.03545052592847],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.0, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_fba26cafb330a2c11c9043fa2d567520 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_07758897717c0f151e4484126f51b470 = $(`<div id="html_07758897717c0f151e4484126f51b470" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Junction Park State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1159<br>                 <b>Estimated Declaration Votes:</b> 341<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_fba26cafb330a2c11c9043fa2d567520.setContent(html_07758897717c0f151e4484126f51b470);
+            
+        
+
+        circle_marker_ced5281df97c801f6f749143f2144155.bindPopup(popup_fba26cafb330a2c11c9043fa2d567520)
+        ;
+
+        
+    
+    
+            var circle_marker_a57d51049bd5411b86553bdd87812d5c = L.circleMarker(
+                [-27.5092, 153.032],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.56, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_43dc96655150c37a2dd4e3adab29a230 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_739ce6493748a174227c2dbe97dcc54c = $(`<div id="html_739ce6493748a174227c2dbe97dcc54c" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Church of Christ Hall</b><br>                 <b>Estimated Ordinary Votes:</b> 1017<br>                 <b>Estimated Declaration Votes:</b> 239<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_43dc96655150c37a2dd4e3adab29a230.setContent(html_739ce6493748a174227c2dbe97dcc54c);
+            
+        
+
+        circle_marker_a57d51049bd5411b86553bdd87812d5c.bindPopup(popup_43dc96655150c37a2dd4e3adab29a230)
+        ;
+
+        
+    
+    
+            var circle_marker_dc19ddbf07b7eb545c153ba3f55ae205 = L.circleMarker(
+                [-27.50758567, 153.03452058],
+                {"bubblingMouseEvents": true, "color": "grey", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "grey", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.09, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_ec5414daeb47f146e85b1545eb3790d6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6ca0b9490bf035de872d8e0d3d7a6bc7 = $(`<div id="html_6ca0b9490bf035de872d8e0d3d7a6bc7" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">The Rock Church</b><br>                 <b>Estimated Ordinary Votes:</b> 753<br>                 <b>Estimated Declaration Votes:</b> 156<br>                 <b>Wheelchair Access:</b> Assisted             </div>         </div>`)[0];
+                popup_ec5414daeb47f146e85b1545eb3790d6.setContent(html_6ca0b9490bf035de872d8e0d3d7a6bc7);
+            
+        
+
+        circle_marker_dc19ddbf07b7eb545c153ba3f55ae205.bindPopup(popup_ec5414daeb47f146e85b1545eb3790d6)
+        ;
+
+        
+    
+    
+            var circle_marker_386d7a6e31e65a598a47bf477c7997a5 = L.circleMarker(
+                [-27.46866749146597, 153.02322345770497],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2.28, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_09631ca2e9f129c5da1ec6d1243f68a5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_76c65a9b82d30800ea9e6d57700dd35e = $(`<div id="html_76c65a9b82d30800ea9e6d57700dd35e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Brisbane City Hall</b><br>                 <b>Estimated Ordinary Votes:</b> 228<br>                 <b>Estimated Declaration Votes:</b> 0<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_09631ca2e9f129c5da1ec6d1243f68a5.setContent(html_76c65a9b82d30800ea9e6d57700dd35e);
+            
+        
+
+        circle_marker_386d7a6e31e65a598a47bf477c7997a5.bindPopup(popup_09631ca2e9f129c5da1ec6d1243f68a5)
+        ;
+
+        
+    
+    
+            var circle_marker_47d9f999213a9beabb5f787d566181fa = L.circleMarker(
+                [-27.501575, 153.036579],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.65, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_e9fd4c3d3402a5ebcb51994e9e6ba0aa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_57c42c7caf2a6d1f634dd2cc6905d84e = $(`<div id="html_57c42c7caf2a6d1f634dd2cc6905d84e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">St Philip's Anglican Church</b><br>                 <b>Estimated Ordinary Votes:</b> 273<br>                 <b>Estimated Declaration Votes:</b> 192<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_e9fd4c3d3402a5ebcb51994e9e6ba0aa.setContent(html_57c42c7caf2a6d1f634dd2cc6905d84e);
+            
+        
+
+        circle_marker_47d9f999213a9beabb5f787d566181fa.bindPopup(popup_e9fd4c3d3402a5ebcb51994e9e6ba0aa)
+        ;
+
+        
+    
+    
+            var circle_marker_53c1501e97faefc15f7249bda10372ed = L.circleMarker(
+                [-27.51372479065299, 152.97773582023052],
+                {"bubblingMouseEvents": true, "color": "grey", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "grey", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.23, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_f249ee2ed90d9233b85955a2b1c691d8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bc5e98ad240a00dc5859c86e1ca9a167 = $(`<div id="html_bc5e98ad240a00dc5859c86e1ca9a167" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Milpera State High School</b><br>                 <b>Estimated Ordinary Votes:</b> 732<br>                 <b>Estimated Declaration Votes:</b> 91<br>                 <b>Wheelchair Access:</b> Assisted             </div>         </div>`)[0];
+                popup_f249ee2ed90d9233b85955a2b1c691d8.setContent(html_bc5e98ad240a00dc5859c86e1ca9a167);
+            
+        
+
+        circle_marker_53c1501e97faefc15f7249bda10372ed.bindPopup(popup_f249ee2ed90d9233b85955a2b1c691d8)
+        ;
+
+        
+    
+    
+            var circle_marker_1ffce7784d48709ca75b466f7f2818a6 = L.circleMarker(
+                [-27.5679267971535, 153.039211820299],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.72, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_b0e7c1730ea78d2a53c494f3f0c379c3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d3c5ab1b9289ee25744451742252ee1d = $(`<div id="html_d3c5ab1b9289ee25744451742252ee1d" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Coopers Plains State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1262<br>                 <b>Estimated Declaration Votes:</b> 310<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_b0e7c1730ea78d2a53c494f3f0c379c3.setContent(html_d3c5ab1b9289ee25744451742252ee1d);
+            
+        
+
+        circle_marker_1ffce7784d48709ca75b466f7f2818a6.bindPopup(popup_b0e7c1730ea78d2a53c494f3f0c379c3)
+        ;
+
+        
+    
+    
+            var circle_marker_9ba3a54c7f38f1eb5b0603e1d2ccea96 = L.circleMarker(
+                [-27.538000320192957, 152.9834341607283],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.07, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_8523c0137bc073d12e7ec01071ee3ea3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d5d3da2d6b500bdf5e164925c50538ef = $(`<div id="html_d5d3da2d6b500bdf5e164925c50538ef" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">St Joseph's Catholic Primary School</b><br>                 <b>Estimated Ordinary Votes:</b> 1322<br>                 <b>Estimated Declaration Votes:</b> 185<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_8523c0137bc073d12e7ec01071ee3ea3.setContent(html_d5d3da2d6b500bdf5e164925c50538ef);
+            
+        
+
+        circle_marker_9ba3a54c7f38f1eb5b0603e1d2ccea96.bindPopup(popup_8523c0137bc073d12e7ec01071ee3ea3)
+        ;
+
+        
+    
+    
+            var circle_marker_02fa5329d117f134e696369bb25a3157 = L.circleMarker(
+                [-27.5492, 152.982],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.01, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_71c7cebb62f63f25ca0a885f8d66aaf4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a6975d50344d4986b1e9f1a783871e44 = $(`<div id="html_a6975d50344d4986b1e9f1a783871e44" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Corinda State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1021<br>                 <b>Estimated Declaration Votes:</b> 180<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_71c7cebb62f63f25ca0a885f8d66aaf4.setContent(html_a6975d50344d4986b1e9f1a783871e44);
+            
+        
+
+        circle_marker_02fa5329d117f134e696369bb25a3157.bindPopup(popup_71c7cebb62f63f25ca0a885f8d66aaf4)
+        ;
+
+        
+    
+    
+            var circle_marker_4c6e44df7a979bf86680ee94db925dfd = L.circleMarker(
+                [-27.593209598882407, 153.10958120317545],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.33, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_a8bf81bb9500722e809da7b347a751f3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c737619ae999f1da90daf48b9c849613 = $(`<div id="html_c737619ae999f1da90daf48b9c849613" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Eight Mile Plains State School</b><br>                 <b>Estimated Ordinary Votes:</b> 393<br>                 <b>Estimated Declaration Votes:</b> 240<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_a8bf81bb9500722e809da7b347a751f3.setContent(html_c737619ae999f1da90daf48b9c849613);
+            
+        
+
+        circle_marker_4c6e44df7a979bf86680ee94db925dfd.bindPopup(popup_a8bf81bb9500722e809da7b347a751f3)
+        ;
+
+        
+    
+    
+            var circle_marker_2d23f1ea5f59780f39165bb1e2d0dd9e = L.circleMarker(
+                [-27.5864, 153.084],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30.75, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_cc2692229e720125a0e76db0cbb0c6c8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_651959e676d1435d8dff286a8afd729b = $(`<div id="html_651959e676d1435d8dff286a8afd729b" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Warrigal Road State School</b><br>                 <b>Estimated Ordinary Votes:</b> 2653<br>                 <b>Estimated Declaration Votes:</b> 422<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_cc2692229e720125a0e76db0cbb0c6c8.setContent(html_651959e676d1435d8dff286a8afd729b);
+            
+        
+
+        circle_marker_2d23f1ea5f59780f39165bb1e2d0dd9e.bindPopup(popup_cc2692229e720125a0e76db0cbb0c6c8)
+        ;
+
+        
+    
+    
+            var circle_marker_d90fb812ee28109178a98e4532a5be07 = L.circleMarker(
+                [-27.5121032251098, 153.023248779072],
+                {"bubblingMouseEvents": true, "color": "grey", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "grey", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.44, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_45d9d3a76fa7611995445946b2655a60 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_60d5f51a30cf4b08af7aaa6f9abed247 = $(`<div id="html_60d5f51a30cf4b08af7aaa6f9abed247" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Fairfield Christian Family Church Hall</b><br>                 <b>Estimated Ordinary Votes:</b> 998<br>                 <b>Estimated Declaration Votes:</b> 146<br>                 <b>Wheelchair Access:</b> Assisted             </div>         </div>`)[0];
+                popup_45d9d3a76fa7611995445946b2655a60.setContent(html_60d5f51a30cf4b08af7aaa6f9abed247);
+            
+        
+
+        circle_marker_d90fb812ee28109178a98e4532a5be07.bindPopup(popup_45d9d3a76fa7611995445946b2655a60)
+        ;
+
+        
+    
+    
+            var circle_marker_88280441ceb0e8ca9ac4c6560560e43b = L.circleMarker(
+                [-27.5186, 152.979],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.38, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_2ad9fe10f640c79394deebb599f88288 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2df3980620284662a543abf9278487d1 = $(`<div id="html_2df3980620284662a543abf9278487d1" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Graceville State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1679<br>                 <b>Estimated Declaration Votes:</b> 259<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_2ad9fe10f640c79394deebb599f88288.setContent(html_2df3980620284662a543abf9278487d1);
+            
+        
+
+        circle_marker_88280441ceb0e8ca9ac4c6560560e43b.bindPopup(popup_2ad9fe10f640c79394deebb599f88288)
+        ;
+
+        
+    
+    
+            var circle_marker_2caaa6c2238e748f2004d5d1a8717a85 = L.circleMarker(
+                [-27.5219618, 152.9754845],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.05, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_eacc53521b7cfbffe749261307d50003 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_429f231eed8797e8e14820a626e088d0 = $(`<div id="html_429f231eed8797e8e14820a626e088d0" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Graceville Presbyterian Church</b><br>                 <b>Estimated Ordinary Votes:</b> 988<br>                 <b>Estimated Declaration Votes:</b> 117<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_eacc53521b7cfbffe749261307d50003.setContent(html_429f231eed8797e8e14820a626e088d0);
+            
+        
+
+        circle_marker_2caaa6c2238e748f2004d5d1a8717a85.bindPopup(popup_eacc53521b7cfbffe749261307d50003)
+        ;
+
+        
+    
+    
+            var circle_marker_c63c446b4ea8e6a8ea6d21f7d9f4ef31 = L.circleMarker(
+                [-27.6076726031896, 153.096122399128],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.8, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_0a75437b0cfc73f2b76773bce0d14096 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_96dd42e670582705ce6a1f684c7160b9 = $(`<div id="html_96dd42e670582705ce6a1f684c7160b9" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Kuraby State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1988<br>                 <b>Estimated Declaration Votes:</b> 292<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_0a75437b0cfc73f2b76773bce0d14096.setContent(html_96dd42e670582705ce6a1f684c7160b9);
+            
+        
+
+        circle_marker_c63c446b4ea8e6a8ea6d21f7d9f4ef31.bindPopup(popup_0a75437b0cfc73f2b76773bce0d14096)
+        ;
+
+        
+    
+    
+            var circle_marker_b643e415fc01a5a6543b62f0f8075846 = L.circleMarker(
+                [-27.5641912508899, 153.076678736735],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.67, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_a2d86e68580d6484c26d137113b5b157 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_aa58424b7978dfe4617cf3511be7d674 = $(`<div id="html_aa58424b7978dfe4617cf3511be7d674" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">MacGregor State High School</b><br>                 <b>Estimated Ordinary Votes:</b> 707<br>                 <b>Estimated Declaration Votes:</b> 160<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_a2d86e68580d6484c26d137113b5b157.setContent(html_aa58424b7978dfe4617cf3511be7d674);
+            
+        
+
+        circle_marker_b643e415fc01a5a6543b62f0f8075846.bindPopup(popup_a2d86e68580d6484c26d137113b5b157)
+        ;
+
+        
+    
+    
+            var circle_marker_07b9163f42acd08c1becdbf9af6506d1 = L.circleMarker(
+                [-27.5706054199364, 153.066693976999],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.87, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_29aad3fc31bfaf7b1fedc773102c010d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d603b56ffaec9e7ddeb9a0756963c5e5 = $(`<div id="html_d603b56ffaec9e7ddeb9a0756963c5e5" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">MacGregor State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1064<br>                 <b>Estimated Declaration Votes:</b> 323<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_29aad3fc31bfaf7b1fedc773102c010d.setContent(html_d603b56ffaec9e7ddeb9a0756963c5e5);
+            
+        
+
+        circle_marker_07b9163f42acd08c1becdbf9af6506d1.bindPopup(popup_29aad3fc31bfaf7b1fedc773102c010d)
+        ;
+
+        
+    
+    
+            var circle_marker_3704bd737b72019c29c238b9df6592d7 = L.circleMarker(
+                [-27.5380321, 153.0189738],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.77, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_9ed458690560f4baedd3764abef5645e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1a5e1363d2a3f3dfa44b8754a809b64a = $(`<div id="html_1a5e1363d2a3f3dfa44b8754a809b64a" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">St Brendan's Catholic Church</b><br>                 <b>Estimated Ordinary Votes:</b> 773<br>                 <b>Estimated Declaration Votes:</b> 104<br>                 <b>Wheelchair Access:</b> nan             </div>         </div>`)[0];
+                popup_9ed458690560f4baedd3764abef5645e.setContent(html_1a5e1363d2a3f3dfa44b8754a809b64a);
+            
+        
+
+        circle_marker_3704bd737b72019c29c238b9df6592d7.bindPopup(popup_9ed458690560f4baedd3764abef5645e)
+        ;
+
+        
+    
+    
+            var circle_marker_500637bbac2107a0d30188eec16f3658 = L.circleMarker(
+                [-27.53607, 153.02399217],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.19, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_0e88dc90b6217a5462e578012a9bbf71 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bf7a9d97c8dda2adb11f00f1da7445ba = $(`<div id="html_bf7a9d97c8dda2adb11f00f1da7445ba" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Moorooka State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1732<br>                 <b>Estimated Declaration Votes:</b> 387<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_0e88dc90b6217a5462e578012a9bbf71.setContent(html_bf7a9d97c8dda2adb11f00f1da7445ba);
+            
+        
+
+        circle_marker_500637bbac2107a0d30188eec16f3658.bindPopup(popup_0e88dc90b6217a5462e578012a9bbf71)
+        ;
+
+        
+    
+    
+            var circle_marker_14a1cb9287d10cfcae1e682ea41fe100 = L.circleMarker(
+                [-27.5309, 153.02757],
+                {"bubblingMouseEvents": true, "color": "grey", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "grey", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.27, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_dce888ef81e80118bb3fd34a1fde83ef = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eecb14a293abba093740453b6b84b41e = $(`<div id="html_eecb14a293abba093740453b6b84b41e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Clubhouse Moorooka</b><br>                 <b>Estimated Ordinary Votes:</b> 1153<br>                 <b>Estimated Declaration Votes:</b> 74<br>                 <b>Wheelchair Access:</b> Assisted             </div>         </div>`)[0];
+                popup_dce888ef81e80118bb3fd34a1fde83ef.setContent(html_eecb14a293abba093740453b6b84b41e);
+            
+        
+
+        circle_marker_14a1cb9287d10cfcae1e682ea41fe100.bindPopup(popup_dce888ef81e80118bb3fd34a1fde83ef)
+        ;
+
+        
+    
+    
+            var circle_marker_da3e13698d27e5ff333781b2f368cd55 = L.circleMarker(
+                [-27.5551010206378, 152.975268308811],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.86, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_cd35c1681bf5b7cee0229091137f01fd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_93cd4324f3a694c1f57437491f01de4a = $(`<div id="html_93cd4324f3a694c1f57437491f01de4a" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Oxley Senior Citizens Hall</b><br>                 <b>Estimated Ordinary Votes:</b> 904<br>                 <b>Estimated Declaration Votes:</b> 182<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_cd35c1681bf5b7cee0229091137f01fd.setContent(html_93cd4324f3a694c1f57437491f01de4a);
+            
+        
+
+        circle_marker_da3e13698d27e5ff333781b2f368cd55.bindPopup(popup_cd35c1681bf5b7cee0229091137f01fd)
+        ;
+
+        
+    
+    
+            var circle_marker_e0c626653bef6340454ec94d26ce8f9d = L.circleMarker(
+                [-27.5633771412126, 152.980352787219],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.03, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_fb5a56d69723546e6413738241d0e3fc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6bb14dd125b5ed786647774b8b248151 = $(`<div id="html_6bb14dd125b5ed786647774b8b248151" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Oxley State School</b><br>                 <b>Estimated Ordinary Votes:</b> 255<br>                 <b>Estimated Declaration Votes:</b> 148<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_fb5a56d69723546e6413738241d0e3fc.setContent(html_6bb14dd125b5ed786647774b8b248151);
+            
+        
+
+        circle_marker_e0c626653bef6340454ec94d26ce8f9d.bindPopup(popup_fb5a56d69723546e6413738241d0e3fc)
+        ;
+
+        
+    
+    
+            var circle_marker_e7d01a85eb04f7480379e5466d1cbaf1 = L.circleMarker(
+                [-27.5642975987835, 153.05572072898],
+                {"bubblingMouseEvents": true, "color": "grey", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "grey", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.97, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_979d16a8635bad41769e4ddb4726c3f1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_011dd689823f150e1f1b7ca3f1974b4e = $(`<div id="html_011dd689823f150e1f1b7ca3f1974b4e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Robertson State School</b><br>                 <b>Estimated Ordinary Votes:</b> 982<br>                 <b>Estimated Declaration Votes:</b> 215<br>                 <b>Wheelchair Access:</b> Assisted             </div>         </div>`)[0];
+                popup_979d16a8635bad41769e4ddb4726c3f1.setContent(html_011dd689823f150e1f1b7ca3f1974b4e);
+            
+        
+
+        circle_marker_e7d01a85eb04f7480379e5466d1cbaf1.bindPopup(popup_979d16a8635bad41769e4ddb4726c3f1)
+        ;
+
+        
+    
+    
+            var circle_marker_09589d872aa736e201f0a847561a8119 = L.circleMarker(
+                [-27.546638323541547, 153.0118191145516],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.62, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_963dab309b0bbb5f28378b5aab93da0f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_526d95ab6bc601f78e3949d8a6bc86d7 = $(`<div id="html_526d95ab6bc601f78e3949d8a6bc86d7" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Rocklea State School</b><br>                 <b>Estimated Ordinary Votes:</b> 418<br>                 <b>Estimated Declaration Votes:</b> 144<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_963dab309b0bbb5f28378b5aab93da0f.setContent(html_526d95ab6bc601f78e3949d8a6bc86d7);
+            
+        
+
+        circle_marker_09589d872aa736e201f0a847561a8119.bindPopup(popup_963dab309b0bbb5f28378b5aab93da0f)
+        ;
+
+        
+    
+    
+            var circle_marker_41b303e921f44ef6fad9bb89c8fdd961 = L.circleMarker(
+                [-27.5931, 153.077],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.93, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_6f842df819abe165b96e0ea9a9f22411 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_00cde71aa41fc63c9daf31306b050962 = $(`<div id="html_00cde71aa41fc63c9daf31306b050962" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Runcorn State High School</b><br>                 <b>Estimated Ordinary Votes:</b> 1164<br>                 <b>Estimated Declaration Votes:</b> 229<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_6f842df819abe165b96e0ea9a9f22411.setContent(html_00cde71aa41fc63c9daf31306b050962);
+            
+        
+
+        circle_marker_41b303e921f44ef6fad9bb89c8fdd961.bindPopup(popup_6f842df819abe165b96e0ea9a9f22411)
+        ;
+
+        
+    
+    
+            var circle_marker_acc9aa637be7335088d0efe06872d7fe = L.circleMarker(
+                [-27.60448, 153.0686],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.33, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_ae125839b9f1a64ffd8c7c0bc5acad29 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a8b9bd7521abfbff5a685be9da0a5cef = $(`<div id="html_a8b9bd7521abfbff5a685be9da0a5cef" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Runcorn Heights State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1860<br>                 <b>Estimated Declaration Votes:</b> 173<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_ae125839b9f1a64ffd8c7c0bc5acad29.setContent(html_a8b9bd7521abfbff5a685be9da0a5cef);
+            
+        
+
+        circle_marker_acc9aa637be7335088d0efe06872d7fe.bindPopup(popup_ae125839b9f1a64ffd8c7c0bc5acad29)
+        ;
+
+        
+    
+    
+            var circle_marker_84cc8ebc5ddd9486ccc0225287376c97 = L.circleMarker(
+                [-27.5538, 153.033],
+                {"bubblingMouseEvents": true, "color": "grey", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "grey", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.63, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_b8e729186f39235c46a1bfc38ea75bfc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d428fdaaf2d12df5d6806264faebf096 = $(`<div id="html_d428fdaaf2d12df5d6806264faebf096" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Salisbury State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1915<br>                 <b>Estimated Declaration Votes:</b> 248<br>                 <b>Wheelchair Access:</b> Assisted             </div>         </div>`)[0];
+                popup_b8e729186f39235c46a1bfc38ea75bfc.setContent(html_d428fdaaf2d12df5d6806264faebf096);
+            
+        
+
+        circle_marker_84cc8ebc5ddd9486ccc0225287376c97.bindPopup(popup_b8e729186f39235c46a1bfc38ea75bfc)
+        ;
+
+        
+    
+    
+            var circle_marker_9f676fde07d7bf44dec98e3effbaeaff = L.circleMarker(
+                [-27.5318723, 152.98422177],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.25, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_30f8dca69aed1db042643af2a7fccf4c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7a6ced26011b18f4e0f38d76374d1cad = $(`<div id="html_7a6ced26011b18f4e0f38d76374d1cad" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Sherwood State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1603<br>                 <b>Estimated Declaration Votes:</b> 222<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_30f8dca69aed1db042643af2a7fccf4c.setContent(html_7a6ced26011b18f4e0f38d76374d1cad);
+            
+        
+
+        circle_marker_9f676fde07d7bf44dec98e3effbaeaff.bindPopup(popup_30f8dca69aed1db042643af2a7fccf4c)
+        ;
+
+        
+    
+    
+            var circle_marker_a57e9a9218b13e44f92e5f5198991990 = L.circleMarker(
+                [-27.575566716683756, 153.05838284693397],
+                {"bubblingMouseEvents": true, "color": "grey", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "grey", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.8, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_f512de021cdb169e197062af0e9a5855 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9bb2e38626131357d17448b9897915ff = $(`<div id="html_9bb2e38626131357d17448b9897915ff" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Sunnybank State High School</b><br>                 <b>Estimated Ordinary Votes:</b> 1209<br>                 <b>Estimated Declaration Votes:</b> 271<br>                 <b>Wheelchair Access:</b> Assisted             </div>         </div>`)[0];
+                popup_f512de021cdb169e197062af0e9a5855.setContent(html_9bb2e38626131357d17448b9897915ff);
+            
+        
+
+        circle_marker_a57e9a9218b13e44f92e5f5198991990.bindPopup(popup_f512de021cdb169e197062af0e9a5855)
+        ;
+
+        
+    
+    
+            var circle_marker_56de84a4ea020b9d827c6d82261a9cd3 = L.circleMarker(
+                [-27.5940661790248, 153.055783785205],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.53, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_7166e99e6fc107b765825677a5bbe723 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_97c4b6d617d29c4e2d65b64b181afdcc = $(`<div id="html_97c4b6d617d29c4e2d65b64b181afdcc" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Sunnybank Hills State School</b><br>                 <b>Estimated Ordinary Votes:</b> 2411<br>                 <b>Estimated Declaration Votes:</b> 342<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_7166e99e6fc107b765825677a5bbe723.setContent(html_97c4b6d617d29c4e2d65b64b181afdcc);
+            
+        
+
+        circle_marker_56de84a4ea020b9d827c6d82261a9cd3.bindPopup(popup_7166e99e6fc107b765825677a5bbe723)
+        ;
+
+        
+    
+    
+            var circle_marker_2e547aa105bd183f76f0bde0e461639f = L.circleMarker(
+                [-27.5871682395745, 153.06179418543],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.73, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_823c9f6918ac46f2f267ea178d69aa96 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_19f9dff2f5a0d85e0750d3b635ed525a = $(`<div id="html_19f9dff2f5a0d85e0750d3b635ed525a" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Runcorn State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1002<br>                 <b>Estimated Declaration Votes:</b> 171<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_823c9f6918ac46f2f267ea178d69aa96.setContent(html_19f9dff2f5a0d85e0750d3b635ed525a);
+            
+        
+
+        circle_marker_2e547aa105bd183f76f0bde0e461639f.bindPopup(popup_823c9f6918ac46f2f267ea178d69aa96)
+        ;
+
+        
+    
+    
+            var circle_marker_f5b61349b5bd20a6b05a94a8b0473668 = L.circleMarker(
+                [-27.51178316, 153.03946035],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.47, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_ba3c011e410bb2f3d2612be6458ba594 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_91eeb9119164777c2c411f18459db3a0 = $(`<div id="html_91eeb9119164777c2c411f18459db3a0" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Multicultural Hub</b><br>                 <b>Estimated Ordinary Votes:</b> 1435<br>                 <b>Estimated Declaration Votes:</b> 212<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_ba3c011e410bb2f3d2612be6458ba594.setContent(html_91eeb9119164777c2c411f18459db3a0);
+            
+        
+
+        circle_marker_f5b61349b5bd20a6b05a94a8b0473668.bindPopup(popup_ba3c011e410bb2f3d2612be6458ba594)
+        ;
+
+        
+    
+    
+            var circle_marker_75a4cbd951becd74abb4f4276595b05a = L.circleMarker(
+                [-27.5290704673589, 153.044312014663],
+                {"bubblingMouseEvents": true, "color": "grey", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "grey", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.34, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_31752ace892284e9eefbbe6b1e9bf5fa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f9026d8d52771fe70a45068261caf311 = $(`<div id="html_f9026d8d52771fe70a45068261caf311" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Southside Uniting Church Tarragindi</b><br>                 <b>Estimated Ordinary Votes:</b> 1141<br>                 <b>Estimated Declaration Votes:</b> 93<br>                 <b>Wheelchair Access:</b> Assisted             </div>         </div>`)[0];
+                popup_31752ace892284e9eefbbe6b1e9bf5fa.setContent(html_f9026d8d52771fe70a45068261caf311);
+            
+        
+
+        circle_marker_75a4cbd951becd74abb4f4276595b05a.bindPopup(popup_31752ace892284e9eefbbe6b1e9bf5fa)
+        ;
+
+        
+    
+    
+            var circle_marker_86a4d2c50c1551030da3e53b148c7929 = L.circleMarker(
+                [-27.5257569675936, 153.046908894803],
+                {"bubblingMouseEvents": true, "color": "grey", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "grey", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.11, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_7ded1e67915eb37a04b6c317e617b47a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_67417d103c56c733bacece04cbfe4260 = $(`<div id="html_67417d103c56c733bacece04cbfe4260" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Wellers Hill State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1675<br>                 <b>Estimated Declaration Votes:</b> 236<br>                 <b>Wheelchair Access:</b> Assisted             </div>         </div>`)[0];
+                popup_7ded1e67915eb37a04b6c317e617b47a.setContent(html_67417d103c56c733bacece04cbfe4260);
+            
+        
+
+        circle_marker_86a4d2c50c1551030da3e53b148c7929.bindPopup(popup_7ded1e67915eb37a04b6c317e617b47a)
+        ;
+
+        
+    
+    
+            var circle_marker_2068f7f6211475c7bb2a1e47adc50c21 = L.circleMarker(
+                [-27.5199, 153.02],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.12, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_09b61e7f0806d441b13d247bf45ea805 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c04d8914f95c774ee6b748cb29f9cfee = $(`<div id="html_c04d8914f95c774ee6b748cb29f9cfee" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">Yeronga State School</b><br>                 <b>Estimated Ordinary Votes:</b> 1949<br>                 <b>Estimated Declaration Votes:</b> 263<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_09b61e7f0806d441b13d247bf45ea805.setContent(html_c04d8914f95c774ee6b748cb29f9cfee);
+            
+        
+
+        circle_marker_2068f7f6211475c7bb2a1e47adc50c21.bindPopup(popup_09b61e7f0806d441b13d247bf45ea805)
+        ;
+
+        
+    
+    
+            var circle_marker_2ac3ea8df19e70787f18d178de4340d9 = L.circleMarker(
+                [-27.513534, 153.01028],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.19, "stroke": true, "weight": 3}
+            ).addTo(map_d721f3adaabc0f182df79f7bb3f94707);
+        
+    
+        var popup_a17ebc2efbf6d6fa8df66dc579334e2f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d1cc5728bcdfedc8cb8b712c5b878acb = $(`<div id="html_d1cc5728bcdfedc8cb8b712c5b878acb" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial; font-size: 14px;">                 <b style="font-size: 16px; color: darkblue;">St Sebastian's Catholic Primary School</b><br>                 <b>Estimated Ordinary Votes:</b> 1710<br>                 <b>Estimated Declaration Votes:</b> 209<br>                 <b>Wheelchair Access:</b> Full             </div>         </div>`)[0];
+                popup_a17ebc2efbf6d6fa8df66dc579334e2f.setContent(html_d1cc5728bcdfedc8cb8b712c5b878acb);
+            
+        
+
+        circle_marker_2ac3ea8df19e70787f18d178de4340d9.bindPopup(popup_a17ebc2efbf6d6fa8df66dc579334e2f)
+        ;
+
+        
+    
+</script>
+</html>

@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "polling-places"
+version = "0.1.0"
+description = "A project to plot polling places."
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+
+[tool.setuptools]
+packages = ["polling_places"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[project.optional-dependencies]
+dev = [
+    "ipykernel"
+]
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "C90"]
+ignore = ["E501"]
