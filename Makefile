@@ -42,6 +42,6 @@ lint:
 	pre-commit run --all-files
 
 # Target to compile requirements.txt from requirements.in
-pip-compile:
+pip-compile: $(VENV) $(UV)
 	$(VENV)/bin/uv pip compile --output-file=requirements.txt requirements.in
 	@echo "requirements.txt compiled from requirements.in"
